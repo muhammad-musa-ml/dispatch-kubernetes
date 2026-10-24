@@ -1,0 +1,28 @@
+image=golang:1.26-bookworm pgx=v5.11.0
+# all CPUs visible to the container
+go: downloading github.com/jackc/pgx/v5 v5.11.0
+go: downloading golang.org/x/text v0.29.0
+go: downloading github.com/jackc/puddle/v2 v2.2.2
+go: downloading github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761
+go: downloading github.com/jackc/pgpassfile v1.0.0
+go: downloading golang.org/x/sync v0.17.0
+NumCPU=24 MaxConns=24 dsn_query=""
+NumCPU=24 MaxConns=10 dsn_query="pool_max_conns=10"
+# --cpuset-cpus 0-1
+go: downloading github.com/jackc/pgx/v5 v5.11.0
+go: downloading github.com/jackc/puddle/v2 v2.2.2
+go: downloading github.com/jackc/pgpassfile v1.0.0
+go: downloading github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761
+go: downloading golang.org/x/text v0.29.0
+go: downloading golang.org/x/sync v0.17.0
+NumCPU=2 MaxConns=4 dsn_query=""
+NumCPU=2 MaxConns=10 dsn_query="pool_max_conns=10"
+# --cpuset-cpus 0-7
+go: downloading github.com/jackc/pgx/v5 v5.11.0
+go: downloading github.com/jackc/puddle/v2 v2.2.2
+go: downloading github.com/jackc/pgpassfile v1.0.0
+go: downloading github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761
+go: downloading golang.org/x/text v0.29.0
+go: downloading golang.org/x/sync v0.17.0
+NumCPU=8 MaxConns=8 dsn_query=""
+NumCPU=8 MaxConns=10 dsn_query="pool_max_conns=10"

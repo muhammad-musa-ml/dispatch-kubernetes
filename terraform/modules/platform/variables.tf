@@ -42,7 +42,7 @@ variable "database_node_selector" {
 }
 
 variable "pool_max_conns" {
-  description = "Connections each Dispatch replica may open. The default pool size follows the node's CPU count, which is far too large for 8 replicas."
+  description = "Connections each Dispatch replica may open. Without this, pgx sizes the pool as max(4, CPUs visible to the process): 24 on the machine in results/pool-default.txt, so 8 replicas could ask for 192 of PostgreSQL's 200 connections."
   type        = number
   default     = 10
 }
