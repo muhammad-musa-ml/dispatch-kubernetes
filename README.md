@@ -300,6 +300,12 @@ that the rollback is in the release history and a final post succeeds (`scripts/
    batch and three after it (start and finish times are in the table). The runs took turns through the lock,
    so no two of the timed runs on this cluster overlapped.
 5. **Dispatch's default connection pool is sized from the CPU count** (see the Connections row above).
+6. **`helm rollback --wait` returns before the failed pods are gone.** The CI smoke test checked right after
+   the rollback that no pod still ran the bad image, and failed on two runs in a row: the pod of the bad
+   release was still listed, with a deletion timestamp, for a couple of seconds. An earlier run had passed on
+   the same code, so it was a race and not a change. I reproduced it on the local cluster, and the check now
+   waits up to 60 seconds for that pod to be deleted; a pod that never goes away still fails it (tried both
+   ways on the cluster).
 
 ## Limits
 
