@@ -1,0 +1,7 @@
+# docker ps at the end of the rolling-nosleep batch (2026-10-24T13:49:20.616336+00:00)
+NAMES                                    STATUS                 PORTS
+dispatch-worker2                         Up 7 hours             
+dispatch-worker3                         Up 7 hours             
+dispatch-control-plane                   Up 7 hours             127.0.0.1:53027->6443/tcp, 127.0.0.1:18100->30080/tcp
+dispatch-worker                          Up 7 hours             
+# plus 22 other containers from unrelated local projects running at the time (names withheld; they published 11 host ports)

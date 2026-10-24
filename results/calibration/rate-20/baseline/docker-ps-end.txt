@@ -1,0 +1,7 @@
+# docker ps at the end of the baseline batch (2026-10-24T13:38:11.853496+00:00)
+NAMES                                    STATUS                 PORTS
+dispatch-worker2                         Up 6 hours             
+dispatch-worker3                         Up 6 hours             
+dispatch-control-plane                   Up 6 hours             127.0.0.1:53027->6443/tcp, 127.0.0.1:18100->30080/tcp
+dispatch-worker                          Up 6 hours             
+# plus 22 other containers from unrelated local projects running at the time (names withheld; they published 11 host ports)

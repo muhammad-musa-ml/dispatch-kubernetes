@@ -1,0 +1,195 @@
+{
+  "scenario": "baseline",
+  "run": 1,
+  "run_id": "baseline-1-1792849028",
+  "params": {
+    "rate_per_s": 20,
+    "duration_s": 60,
+    "fault_at_s": 30,
+    "window_s": 30,
+    "request_timeout_s": 5,
+    "k6_image": "grafana/k6:2.2.0"
+  },
+  "load_start_vm_epoch": 1792849030.7647283,
+  "fault_offset_s": 30.328,
+  "settled_before": {
+    "ready": 3,
+    "pods": 3,
+    "hpa_current": null,
+    "hpa_desired": null,
+    "backlog": 0,
+    "settle_seconds": 0.7
+  },
+  "pods_before": [
+    {
+      "name": "dispatch-87565959c-qmzkz",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 1
+    },
+    {
+      "name": "dispatch-87565959c-rp8qm",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 0
+    },
+    {
+      "name": "dispatch-87565959c-xvzdq",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 0
+    }
+  ],
+  "k6_exit": 0,
+  "requests": 1199,
+  "failed": 0,
+  "dropped_iterations": 0,
+  "status_counts": {
+    "201": 1199
+  },
+  "overall": {
+    "from_s": 0,
+    "to_s": 1000000000.0,
+    "requests": 1199,
+    "failed": 0,
+    "p50_ms": 5.198678,
+    "p95_ms": 10.189088,
+    "p99_ms": 14.041179,
+    "max_ms": 54.349545
+  },
+  "pre_fault": {
+    "from_s": 5,
+    "to_s": 30,
+    "requests": 502,
+    "failed": 0,
+    "p50_ms": 5.261914,
+    "p95_ms": 9.678952,
+    "p99_ms": 12.98597,
+    "max_ms": 23.861611
+  },
+  "fault_window": {
+    "from_s": 30,
+    "to_s": 60,
+    "requests": 595,
+    "failed": 0,
+    "p50_ms": 4.944703,
+    "p95_ms": 10.316421,
+    "p99_ms": 12.553087,
+    "max_ms": 21.101009
+  },
+  "post_window": {
+    "from_s": 60,
+    "to_s": 1000000000.0,
+    "requests": 0,
+    "failed": 0,
+    "p50_ms": null,
+    "p95_ms": null,
+    "p99_ms": null,
+    "max_ms": null
+  },
+  "error_window": {
+    "failed": 0,
+    "first_s": null,
+    "last_s": null,
+    "span_s": 0.0
+  },
+  "cluster_recovery_s": null,
+  "detail": {},
+  "top_samples": [
+    {
+      "offset_s": -1.0,
+      "api_cpu_m": [
+        15,
+        11,
+        8
+      ],
+      "postgres_cpu_m": 43,
+      "receiver_cpu_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "offset_s": 14.4,
+      "api_cpu_m": [
+        16,
+        12,
+        8
+      ],
+      "postgres_cpu_m": 47,
+      "receiver_cpu_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "offset_s": 29.9,
+      "api_cpu_m": [
+        26,
+        58,
+        46
+      ],
+      "postgres_cpu_m": 183,
+      "receiver_cpu_m": [
+        11,
+        8
+      ]
+    },
+    {
+      "offset_s": 45.3,
+      "api_cpu_m": [
+        81,
+        79,
+        82
+      ],
+      "postgres_cpu_m": 324,
+      "receiver_cpu_m": [
+        27,
+        10
+      ]
+    }
+  ],
+  "hpa_after": {
+    "current": null,
+    "desired": null,
+    "cpu_pct": null
+  },
+  "pods_after": [
+    {
+      "name": "dispatch-87565959c-qmzkz",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 1
+    },
+    {
+      "name": "dispatch-87565959c-rp8qm",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 0
+    },
+    {
+      "name": "dispatch-87565959c-xvzdq",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 0
+    }
+  ]
+}

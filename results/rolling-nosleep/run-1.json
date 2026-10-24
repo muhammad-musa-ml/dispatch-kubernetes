@@ -1,0 +1,242 @@
+{
+  "scenario": "rolling-nosleep",
+  "run": 1,
+  "run_id": "rolling-nosleep-1-1792849105",
+  "params": {
+    "rate_per_s": 40,
+    "duration_s": 120,
+    "fault_at_s": 30,
+    "window_s": 60,
+    "request_timeout_s": 5,
+    "k6_image": "grafana/k6:2.2.0"
+  },
+  "load_start_vm_epoch": 1792849113.8688889,
+  "fault_offset_s": 30.546,
+  "settled_before": {
+    "ready": 3,
+    "pods": 3,
+    "hpa_current": null,
+    "hpa_desired": null,
+    "backlog": 0,
+    "settle_seconds": 7.7
+  },
+  "pods_before": [
+    {
+      "name": "dispatch-7cd955867d-fz5br",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 0
+    },
+    {
+      "name": "dispatch-7cd955867d-h7ftv",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 0
+    },
+    {
+      "name": "dispatch-7cd955867d-wqhmh",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 0
+    }
+  ],
+  "k6_exit": 0,
+  "requests": 4799,
+  "failed": 9,
+  "dropped_iterations": 0,
+  "status_counts": {
+    "201": 4790,
+    "0": 9
+  },
+  "overall": {
+    "from_s": 0,
+    "to_s": 1000000000.0,
+    "requests": 4799,
+    "failed": 9,
+    "p50_ms": 4.160792,
+    "p95_ms": 7.454823,
+    "p99_ms": 10.906455,
+    "max_ms": 78.419142
+  },
+  "pre_fault": {
+    "from_s": 5,
+    "to_s": 30,
+    "requests": 1004,
+    "failed": 0,
+    "p50_ms": 4.296257,
+    "p95_ms": 7.215784,
+    "p99_ms": 11.022635,
+    "max_ms": 35.517585
+  },
+  "fault_window": {
+    "from_s": 30,
+    "to_s": 90,
+    "requests": 2409,
+    "failed": 9,
+    "p50_ms": 4.068686,
+    "p95_ms": 7.033548,
+    "p99_ms": 9.663663,
+    "max_ms": 78.419142
+  },
+  "post_window": {
+    "from_s": 90,
+    "to_s": 1000000000.0,
+    "requests": 1185,
+    "failed": 0,
+    "p50_ms": 4.16721,
+    "p95_ms": 8.390522,
+    "p99_ms": 12.119197,
+    "max_ms": 55.604604
+  },
+  "error_window": {
+    "failed": 9,
+    "first_s": 38.051,
+    "last_s": 45.401,
+    "span_s": 7.351
+  },
+  "cluster_recovery_s": 9.66,
+  "detail": {
+    "helm_upgrade_seconds": 9.66
+  },
+  "top_samples": [
+    {
+      "offset_s": -0.4,
+      "api_cpu_m": [],
+      "postgres_cpu_m": 132,
+      "receiver_cpu_m": [
+        8,
+        13
+      ]
+    },
+    {
+      "offset_s": 14.9,
+      "api_cpu_m": [
+        20,
+        37,
+        18
+      ],
+      "postgres_cpu_m": 164,
+      "receiver_cpu_m": [
+        2,
+        1
+      ]
+    },
+    {
+      "offset_s": 30.4,
+      "api_cpu_m": [
+        102,
+        37,
+        106
+      ],
+      "postgres_cpu_m": 501,
+      "receiver_cpu_m": [
+        20,
+        35
+      ]
+    },
+    {
+      "offset_s": 45.8,
+      "api_cpu_m": [],
+      "postgres_cpu_m": 444,
+      "receiver_cpu_m": [
+        16,
+        36
+      ]
+    },
+    {
+      "offset_s": 61.3,
+      "api_cpu_m": [
+        126,
+        136,
+        131
+      ],
+      "postgres_cpu_m": 510,
+      "receiver_cpu_m": [
+        14,
+        45
+      ]
+    },
+    {
+      "offset_s": 76.6,
+      "api_cpu_m": [
+        126,
+        110,
+        143
+      ],
+      "postgres_cpu_m": 480,
+      "receiver_cpu_m": [
+        14,
+        42
+      ]
+    },
+    {
+      "offset_s": 92.2,
+      "api_cpu_m": [
+        114,
+        106,
+        125
+      ],
+      "postgres_cpu_m": 415,
+      "receiver_cpu_m": [
+        11,
+        37
+      ]
+    },
+    {
+      "offset_s": 107.5,
+      "api_cpu_m": [
+        108,
+        106,
+        133
+      ],
+      "postgres_cpu_m": 435,
+      "receiver_cpu_m": [
+        11,
+        45
+      ]
+    }
+  ],
+  "hpa_after": {
+    "current": null,
+    "desired": null,
+    "cpu_pct": null
+  },
+  "pods_after": [
+    {
+      "name": "dispatch-7bf8c64f56-2264t",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 0
+    },
+    {
+      "name": "dispatch-7bf8c64f56-jhw7m",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 0
+    },
+    {
+      "name": "dispatch-7bf8c64f56-wwrr8",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running",
+      "restarts": 0
+    }
+  ]
+}

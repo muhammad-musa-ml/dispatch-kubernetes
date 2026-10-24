@@ -1,0 +1,7 @@
+# docker ps at the start of the baseline batch (2026-10-24T13:37:07.999097+00:00, waited 2848s for the lock)
+NAMES                                    STATUS                 PORTS
+dispatch-worker2                         Up 6 hours             
+dispatch-worker3                         Up 6 hours             
+dispatch-control-plane                   Up 6 hours             127.0.0.1:53027->6443/tcp, 127.0.0.1:18100->30080/tcp
+dispatch-worker                          Up 6 hours             
+# plus 25 other containers from unrelated local projects running at the time (names withheld; they published 13 host ports)

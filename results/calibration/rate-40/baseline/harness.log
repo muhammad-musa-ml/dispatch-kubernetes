@@ -1,0 +1,18 @@
+2026-10-24T13:38:12Z batch baseline: run baseline --runs 1 --rate 40 --duration 60 --fault-at 30 --window 30 --results-dir results/calibration/rate-40
+2026-10-24T13:38:12Z measurement lock held by [P1 2026-10-24T13:38:11.913415+00:00]; waiting
+2026-10-24T13:39:12Z measurement lock held by [P1 2026-10-24T13:38:11.913415+00:00]; waiting
+2026-10-24T13:40:13Z measurement lock held by [P1 2026-10-24T13:38:11.913415+00:00]; waiting
+2026-10-24T13:41:14Z measurement lock held by [P1 2026-10-24T13:38:11.913415+00:00]; waiting
+2026-10-24T13:42:15Z measurement lock held by [P1 2026-10-24T13:38:11.913415+00:00]; waiting
+2026-10-24T13:43:16Z measurement lock held by [P1 2026-10-24T13:38:11.913415+00:00]; waiting
+2026-10-24T13:44:17Z measurement lock held by [P1 2026-10-24T13:38:11.913415+00:00]; waiting
+2026-10-24T13:45:17Z measurement lock held by [P1 2026-10-24T13:38:11.913415+00:00]; waiting
+2026-10-24T13:46:18Z measurement lock held by [P1 2026-10-24T13:38:11.913415+00:00]; waiting
+2026-10-24T13:47:19Z measurement lock held by [P1 2026-10-24T13:38:11.913415+00:00]; waiting
+2026-10-24T13:48:20Z measurement lock held by [P1 2026-10-24T13:38:11.913415+00:00]; waiting
+2026-10-24T13:49:20Z measurement lock acquired after waiting 660s
+2026-10-24T13:49:21Z --- baseline run 1: settling
+2026-10-24T13:49:23Z load started (k6 clock 1792849762.871); fault at +30s
+2026-10-24T13:50:23Z k6 exited 0
+2026-10-24T13:50:23Z run 1: requests=2399 failed=0 dropped=0 p95(fault window)=8.344076 error_span=0.0s recovery=None
+2026-10-24T13:50:24Z measurement lock released

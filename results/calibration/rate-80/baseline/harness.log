@@ -1,0 +1,7 @@
+2026-10-24T13:50:24Z batch baseline: run baseline --runs 1 --rate 80 --duration 60 --fault-at 30 --window 30 --results-dir results/calibration/rate-80
+2026-10-24T13:50:24Z measurement lock acquired after waiting 0s
+2026-10-24T13:50:24Z --- baseline run 1: settling
+2026-10-24T13:50:30Z load started (k6 clock 1792849830.211); fault at +30s
+2026-10-24T13:51:30Z k6 exited 0
+2026-10-24T13:51:31Z run 1: requests=4799 failed=0 dropped=0 p95(fault window)=9.408391 error_span=0.0s recovery=None
+2026-10-24T13:51:31Z measurement lock released
