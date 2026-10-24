@@ -159,22 +159,25 @@ def percentile(values, q):
 def acquire_lock():
     if LOCK_PATH is None:
         sys.exit("set MEASURE_LOCK to the lock file path, or pass --no-lock for calibration only")
-    waited = 0
+    poll = float(os.environ.get("MEASURE_LOCK_POLL", "10"))  # seconds between attempts
+    waited = 0.0
+    next_log = 0.0
     while True:
         try:
             with open(LOCK_PATH, "x") as f:
                 f.write(f"{LOCK_OWNER} {datetime.datetime.now(datetime.timezone.utc).isoformat()}\n")
-            log(f"measurement lock acquired after waiting {waited}s")
-            return waited
+            log(f"measurement lock acquired after waiting {round(waited)}s")
+            return round(waited)
         except FileExistsError:
-            if waited % 60 == 0:
+            if waited >= next_log:
                 try:
                     holder = LOCK_PATH.read_text().strip()
                 except OSError:
                     holder = "?"
                 log(f"measurement lock held by [{holder}]; waiting")
-            time.sleep(10)
-            waited += 10
+                next_log += 60
+            time.sleep(poll)
+            waited += poll
 
 
 def release_lock():
