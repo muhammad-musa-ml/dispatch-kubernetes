@@ -16,7 +16,8 @@ migrations, and behaviour when pods or nodes go away.
 
 This project runs the same code on Kubernetes and measures what a deploy, a crash, a node drain and a bad
 release do to a client sending a steady request rate. Dispatch itself is not changed: it is pulled in as
-a git submodule at a pinned commit and built into an image from its own Dockerfile.
+a clone at a pinned commit (`DISPATCH_API_COMMIT`, fetched by `scripts/fetch-dispatch.sh`) and built into
+an image from its own Dockerfile.
 
 Facts about the service that shape the design (read from `cmd/api/main.go` and `docs/design.md` at the
 pinned commit):
@@ -123,9 +124,9 @@ the schema exists before any new pod starts.
 
 ### Images
 
-Two images built locally and in CI. `dispatch-api` is built from the submodule's own Dockerfile and is used
+Two images built locally and in CI. `dispatch-api` is built from the pinned checkout's own Dockerfile and is used
 for both the API and the receiver. `dispatch-migrate` is `postgres:17-alpine` plus a small shell runner and
-the submodule's `migrations/` directory. A third image exists only for one experiment: `dispatch-api:bad`
+the checkout's `migrations/` directory. A third image exists only for one experiment: `dispatch-api:bad`
 copies the receiver binary to the path `/dispatch`. It is a release that was built and pushed but
 exits immediately because the receiver refuses to start without its own secret.
 

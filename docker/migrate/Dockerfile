@@ -1,4 +1,4 @@
-# Migration runner: psql plus the Dispatch migrations from the pinned submodule.
+# Migration runner: psql plus the Dispatch migrations from the pinned checkout (scripts/fetch-dispatch.sh).
 # Build from the repository root: docker build -f docker/migrate/Dockerfile -t dispatch-migrate .
 FROM postgres:17-alpine
 COPY docker/migrate/migrate.sh /usr/local/bin/migrate.sh

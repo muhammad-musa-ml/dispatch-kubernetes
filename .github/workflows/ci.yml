@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
       - uses: azure/setup-helm@v4
       - uses: hashicorp/setup-terraform@v3
       - name: Helm lint
@@ -32,20 +30,18 @@ jobs:
           terraform -chdir=terraform/envs/local validate
       - name: Shell and Python checks
         run: |
-          shellcheck scripts/*.sh docker/migrate/migrate.sh
+          shellcheck scripts/*.sh docker/migrate/migrate.sh bench/*.sh
           python3 -m py_compile bench/harness.py bench/summarize.py
 
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
       - name: Build images from source
         run: bash scripts/build-images.sh
       - name: Save images
         run: |
-          sha=$(git -C vendor/dispatch-api rev-parse --short=7 HEAD)
+          sha=$(cut -c1-7 DISPATCH_API_COMMIT)
           docker save dispatch-api:${sha} dispatch-migrate:${sha} dispatch-api:bad -o images.tar
       - uses: actions/upload-artifact@v4
         with:
@@ -58,8 +54,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
       - uses: azure/setup-helm@v4
       - uses: actions/download-artifact@v4
         with:
@@ -71,7 +65,7 @@ jobs:
       - name: Load images into the cluster
         run: |
           docker load -i images.tar
-          sha=$(git -C vendor/dispatch-api rev-parse --short=7 HEAD)
+          sha=$(cut -c1-7 DISPATCH_API_COMMIT)
           kind load docker-image dispatch-api:${sha} dispatch-migrate:${sha} dispatch-api:bad --name dispatch-ci
       - name: Smoke deploy, delivery, rolling upgrade, bad release and rollback
         run: bash scripts/smoke.sh

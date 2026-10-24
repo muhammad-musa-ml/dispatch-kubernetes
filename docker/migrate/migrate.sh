@@ -27,7 +27,8 @@ SQL
 
 applied=0
 skipped=0
-for f in $(ls "$dir"/*.sql | sort); do
+for f in "$dir"/*.sql; do
+  [ -e "$f" ] || { echo "migrate: no .sql files in $dir" >&2; exit 1; }
   version=$(basename "$f")
   out=$(psql "$url" -v ON_ERROR_STOP=1 -q -t -A --single-transaction -v version="$version" -v file="$f" <<'SQL'
 SELECT pg_advisory_xact_lock(727274);

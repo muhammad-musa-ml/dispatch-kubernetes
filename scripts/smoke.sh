@@ -11,7 +11,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 NS="${NS:-dispatch}"
-TAG="${TAG:-$(git -C vendor/dispatch-api rev-parse --short=7 HEAD)}"
+TAG="${TAG:-$(cut -c1-7 DISPATCH_API_COMMIT)}"
 PORT="${PORT:-18101}"
 MIN_REPLICAS="${MIN_REPLICAS:-2}"
 helm_dispatch=(helm --namespace "$NS")
@@ -45,13 +45,22 @@ echo "== install"
   --wait --timeout 5m
 kubectl -n "$NS" get pods -o wide
 
-kubectl -n "$NS" port-forward svc/dispatch "${PORT}:8080" >/tmp/port-forward.log 2>&1 &
-pf=$!
+# kubectl port-forward to a Service binds to one pod; when that pod is replaced the forward dies,
+# so it is started again after every rollout.
+pf=""
+start_pf() {
+  [ -n "$pf" ] && kill "$pf" 2>/dev/null || true
+  kubectl -n "$NS" port-forward svc/dispatch "${PORT}:8080" >/tmp/port-forward.log 2>&1 &
+  pf=$!
+  for _ in $(seq 1 30); do
+    curl -fsS "http://127.0.0.1:${PORT}/readyz" >/dev/null 2>&1 && return 0
+    sleep 1
+  done
+  echo "port-forward did not become ready"
+  return 1
+}
 trap 'kill $pf 2>/dev/null || true' EXIT
-for _ in $(seq 1 30); do
-  curl -fsS "http://127.0.0.1:${PORT}/readyz" >/dev/null 2>&1 && break
-  sleep 1
-done
+start_pf
 
 post_event() {
   curl -sS -o /tmp/event.json -w '%{http_code}' "http://127.0.0.1:${PORT}/v1/events" \
@@ -91,6 +100,7 @@ if kubectl -n "$NS" get pods -l app.kubernetes.io/component=api -o jsonpath='{.i
   echo "a pod still runs the bad image"
   exit 1
 fi
+start_pf
 code=$(post_event "smoke-after-$(rand 4)")
 [ "$code" = "201" ] || { echo "POST after rollback returned $code"; exit 1; }
 echo "smoke ok"

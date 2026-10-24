@@ -3,7 +3,7 @@
 # Fault scenarios: 40 requests/s open-loop for 120 s (170 s for the bad release), fault at +30 s.
 # Autoscaler: 10 requests/s, then a step to 60 requests/s.
 set -u
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/.." || exit 1
 python bench/harness.py capture-env || exit 1
 python bench/harness.py run baseline --runs 5 --rate 40 --duration 170 --fault-at 30 --window 60 || echo "baseline FAILED"
 for sc in rolling kill drain; do

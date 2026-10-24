@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Builds the three images from source inside Docker (no Go toolchain is needed on the host).
-#   dispatch-api:<sha>      Dispatch, from the pinned submodule's own Dockerfile (API and demo receiver)
-#   dispatch-migrate:<sha>  psql + the submodule's migrations + docker/migrate/migrate.sh
+#   dispatch-api:<sha>      Dispatch, from the pinned checkout's own Dockerfile (API and demo receiver)
+#   dispatch-migrate:<sha>  psql + the checkout's migrations + docker/migrate/migrate.sh
 #   dispatch-api:bad        a release that cannot start, for the rollback experiment
 set -euo pipefail
 cd "$(dirname "$0")/.."
+bash scripts/fetch-dispatch.sh
 
 sha=$(git -C vendor/dispatch-api rev-parse --short=7 HEAD)
 echo "building images for dispatch-api@${sha}"
