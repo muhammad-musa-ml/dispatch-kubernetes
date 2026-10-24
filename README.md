@@ -284,7 +284,8 @@ that the rollback is in the release history and a final post succeeds (`scripts/
    first round of batches; both are rows of the table above.
 2. **`terraform destroy` failed** when the Kubernetes and Helm providers were configured from the kind
    provider's endpoint and certificate attributes: during the refresh the attributes were empty. Passing the
-   kubeconfig path instead fixed it; `apply` and `destroy` were each run end to end.
+   kubeconfig path instead fixed it, but that fix was tested on a checkout that already had a kubeconfig file
+   (see item 7).
 3. **`helm upgrade --reuse-values` keeps the previous chart's defaults**, so a changed default (the CPU
    request) did not apply. The harness and the smoke test use `--reset-then-reuse-values`.
 4. **The load level needed a check, and the check that is on record came last.** A fault experiment says
@@ -306,6 +307,13 @@ that the rollback is in the release history and a final post succeeds (`scripts/
    the same code, so it was a race and not a change. I reproduced it on the local cluster, and the check now
    waits up to 60 seconds for that pod to be deleted; a pod that never goes away still fails it (tried both
    ways on the cluster).
+7. **A first `terraform apply` from a fresh clone failed.** The applies I ran while building all passed
+   because the first one had left a kubeconfig file in the working directory. With no file there, the
+   Kubernetes provider refused its `config_path`: the file is written by the cluster, which Terraform had
+   not created yet. I found it only by cloning the public repository into an empty folder and following this
+   README. The cluster module's `kubeconfig_path` output is now unknown until the cluster exists, so the
+   providers are configured after it. From a fresh clone I then ran the whole path again: image build,
+   `apply`, the event example above (201, then delivered) and `destroy`.
 
 ## Limits
 
