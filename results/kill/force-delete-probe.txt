@@ -1,0 +1,10 @@
+# Probe: bench/probe-force-delete.sh, run on the cluster after the first round of batches
+# (2026-10-24, about 09:37 UTC; kubectl 1.32.2 client against Kubernetes v1.37.0; containerd in the kind node).
+# Output as printed (the container id and the pod name are the probe's own).
+pod=dispatch-f447b5558-4ckdr node=dispatch-worker3 container=bc0453975e035439dc9780e1e4308ba9b435f185cc90fb03abd606b41fbf6c02
+pod "dispatch-f447b5558-4ckdr" force deleted
+bc0453975e035       2e6a8b9342195       3 minutes ago       Exited              dispatch            0                   195ac024e8592       dispatch-f447b5558-4ckdr   dispatch
+CONTAINER_EXITED exit=0 reason=Completed
+# Reading: the container exited with code 0 (Completed), so the process received SIGTERM and shut down on its
+# own; it was not killed with SIGKILL (that would be exit=137). The scenario named `kill` in these results is
+# therefore "pod deleted with a zero grace period", and `sigkill` is the real process kill.

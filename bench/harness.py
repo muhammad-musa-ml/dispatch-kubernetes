@@ -42,8 +42,10 @@ CLOCK_NODE = f"{CLUSTER}-control-plane"
 BASE_URL = f"http://{CLOCK_NODE}:30080"
 K6_IMAGE = "grafana/k6:2.2.0"
 API_SELECTOR = f"app.kubernetes.io/instance={RELEASE},app.kubernetes.io/component=api"
-LOCK_PATH = Path(os.environ.get("MEASURE_LOCK", "measure.lock"))
-LOCK_OWNER = os.environ.get("MEASURE_LOCK_OWNER", "P1")
+# The machine is shared with other timed work. Every timed batch holds an exclusive lock file whose path
+# comes from the environment (no default: the path is specific to one machine).
+LOCK_PATH = Path(os.environ["MEASURE_LOCK"]) if os.environ.get("MEASURE_LOCK") else None
+LOCK_OWNER = os.environ.get("MEASURE_LOCK_OWNER", "bench")
 EXPECTED_REPLICAS = 3  # autoscaling.minReplicas in the chart
 
 
@@ -106,6 +108,7 @@ def api_pods():
             "deleting": bool(it["metadata"].get("deletionTimestamp")),
             "image": it["spec"]["containers"][0]["image"],
             "phase": it["status"].get("phase"),
+            "restarts": sum(c.get("restartCount", 0) for c in it["status"].get("containerStatuses", []) or []),
         })
     return pods
 
@@ -154,6 +157,8 @@ def percentile(values, q):
 
 # ------------------------------------------------------------------------------------------- lock
 def acquire_lock():
+    if LOCK_PATH is None:
+        sys.exit("set MEASURE_LOCK to the lock file path, or pass --no-lock for calibration only")
     waited = 0
     while True:
         try:
@@ -368,6 +373,33 @@ def fault_kill(ctx):
     return took
 
 
+def fault_sigkill(ctx):
+    """SIGKILL the API process with no SIGTERM, no preStop hook and no drain, as an out-of-memory kill would.
+    The kubelet restarts the container inside the same pod. (`kubectl delete --force --grace-period=0` is not
+    this: the probe in results/kill shows the container still exits 0 after SIGTERM.)"""
+    victim = sorted(ready_pods(), key=lambda p: p["name"])[0]
+    node = victim["node"]
+    cid = sh(["docker", "exec", node, "crictl", "ps", "--label", f"io.kubernetes.pod.name={victim['name']}",
+              "--name", "dispatch", "-q"], kube=False).stdout.split()[0]
+    t = time.time()
+    sh(["docker", "exec", node, "crictl", "stop", "--timeout", "0", cid], kube=False)
+    stopped = time.time() - t
+    code = sh(["docker", "exec", node, "crictl", "inspect", "--output", "go-template", "--template",
+               "{{.status.exitCode}}", cid], kube=False, check=False).stdout.strip()
+    deadline = time.time() + 120
+    while time.time() < deadline:
+        pod = next((p for p in api_pods() if p["name"] == victim["name"]), None)
+        if pod and pod["ready"] and pod["restarts"] > victim["restarts"]:
+            break
+        time.sleep(0.25)
+    else:
+        raise RuntimeError("killed container did not come back Ready")
+    took = time.time() - t
+    ctx["detail"] = {"killed_pod": victim["name"], "killed_node": node, "container_exit_code": code,
+                     "crictl_stop_seconds": round(stopped, 2), "container_restarted_ready_seconds": round(took, 2)}
+    return took
+
+
 def fault_drain(ctx):
     pods = ready_pods()
     per_node = {}
@@ -411,7 +443,8 @@ def fault_badrelease(ctx):
     return t_ready - t_rb
 
 
-FAULTS = {"rolling": fault_rolling, "kill": fault_kill, "drain": fault_drain, "badrelease": fault_badrelease}
+FAULTS = {"rolling": fault_rolling, "kill": fault_kill, "sigkill": fault_sigkill, "drain": fault_drain,
+          "badrelease": fault_badrelease, "rolling-nosleep": fault_rolling}
 
 
 # ----------------------------------------------------------------------------------------- one run
@@ -420,8 +453,8 @@ def run_once(sc, n, args, outdir):
     workdir = ROOT / "bench" / "work" / run_id
     ctx = {"run_id": run_id, "rollout_deadline_s": args.rollout_deadline}
     log(f"--- {sc} run {n}: settling")
-    if sc == "drain":
-        rebalance_pods()
+    if sc in ("drain", "sigkill"):
+        rebalance_pods()  # drain: a known 2+1 placement; sigkill: fresh pods, so the kubelet's restart backoff is zero
     before = settle()
     pods_before = api_pods()
     duration = args.duration
@@ -607,11 +640,22 @@ def batch(args):
             f"# docker ps at the start of the {sc} batch ({datetime.datetime.now(datetime.timezone.utc).isoformat()}, "
             f"waited {waited}s for the lock)\n{ps}", encoding="utf-8")
         ensure_mode(sc == "hpa")
-        for n in range(args.first_run, args.first_run + args.runs):
-            if sc == "hpa":
-                run_hpa(n, args, outdir)
-            else:
-                run_once(sc, n, args, outdir)
+        if sc == "rolling-nosleep":
+            # Ablation: the same rolling deploy with the preStop sleep taken out of the chart values.
+            log("ablation: preStopSleep=0 for this batch")
+            helm("upgrade", RELEASE, str(ROOT / "charts" / "dispatch"), "--reset-then-reuse-values",
+                 "--set", "termination.preStopSleep=0", "--wait", "--timeout", "5m")
+        try:
+            for n in range(args.first_run, args.first_run + args.runs):
+                if sc == "hpa":
+                    run_hpa(n, args, outdir)
+                else:
+                    run_once(sc, n, args, outdir)
+        finally:
+            if sc == "rolling-nosleep":
+                helm("upgrade", RELEASE, str(ROOT / "charts" / "dispatch"), "--reset-then-reuse-values",
+                     "--set", "termination.preStopSleep=5", "--wait", "--timeout", "5m")
+                log("ablation reverted: preStopSleep=5")
         ps = sh(["docker", "ps", "--format", "table {{.Names}}\t{{.Status}}\t{{.Ports}}"], kube=False).stdout
         (outdir / "docker-ps-end.txt").write_text(
             f"# docker ps at the end of the {sc} batch ({datetime.datetime.now(datetime.timezone.utc).isoformat()})\n{ps}",
@@ -626,7 +670,8 @@ def main():
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("capture-env")
     r = sub.add_parser("run")
-    r.add_argument("scenario", choices=["baseline", "rolling", "kill", "drain", "badrelease", "hpa"])
+    r.add_argument("scenario", choices=["baseline", "rolling", "kill", "sigkill", "drain", "badrelease", "hpa",
+                                        "rolling-nosleep"])
     r.add_argument("--runs", type=int, default=5)
     r.add_argument("--first-run", type=int, default=1)
     r.add_argument("--rate", type=int, default=40, help="arrivals per second")
