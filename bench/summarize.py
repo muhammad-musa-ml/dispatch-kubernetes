@@ -128,6 +128,30 @@ def hpa_summary(runs):
     }
 
 
+def provenance_rows():
+    """One row per batch from results/<scenario>/harness.log: the command and the UTC times at which the batch
+    got the measurement lock and let it go."""
+    rows = []
+    for sc in ORDER + ["hpa"]:
+        log = RESULTS / sc / "harness.log"
+        if not log.is_file():
+            continue
+        cmd = start = end = None
+        for ln in log.read_text(encoding="utf-8").splitlines():
+            m = re.match(r"(\S+Z) batch \S+: (.*)$", ln)
+            if m:
+                cmd = m.group(2)
+            m = re.match(r"(\S+Z) measurement lock acquired", ln)
+            if m:
+                start = m.group(1)
+            m = re.match(r"(\S+Z) measurement lock released", ln)
+            if m:
+                end = m.group(1)
+        if cmd and start and end:
+            rows.append(f"| {LABEL.get(sc, 'autoscaler step')} | `python bench/harness.py {cmd}` | {start} | {end} |")
+    return rows
+
+
 def calibration_rows():
     """Table rows for results/calibration/rate-<n>/baseline/run-1.json, lowest rate first; none if absent."""
     rows = []
@@ -202,6 +226,23 @@ def main():
         if s:
             lines.append(f"| {LABEL[sc]} | {fmt(s['api_cpu_load_m'])} | {fmt(s['postgres_cpu_load_m'])} |")
     lines.append("")
+    prov = provenance_rows()
+    if prov:
+        env = json.loads((RESULTS / "environment.json").read_text(encoding="utf-8")) \
+            if (RESULTS / "environment.json").is_file() else {}
+        lines += ["## When and how each batch was run", "",
+                  "Times are UTC, from the harness log of each batch (`results/<scenario>/harness.log`): the moment the "
+                  "batch took the shared measurement lock and the moment it released it.", "",
+                  "| scenario | command | started | finished |", "|---|---|---|---|"]
+        lines += prov
+        lines.append("")
+        if env:
+            lines += ["Machine and tools (`results/environment.json`, captured " + env.get("captured_utc", "?")[:19] + " UTC): "
+                      f"{env.get('host_cpu')}; {env.get('host_os')}; Docker {env.get('docker_server_version')} with "
+                      f"{env.get('docker_ncpu')} CPUs and {round(env.get('docker_mem_bytes', 0) / 2**30, 1)} GiB of memory "
+                      f"visible to it; {env.get('kind')}; Helm {env.get('helm')}; {env.get('terraform')}; "
+                      f"kubectl ({env.get('kubectl_client')}); Kubernetes server {env.get('kubernetes_server')}; "
+                      f"{env.get('k6_version')}; Dispatch commit {env.get('dispatch_api_commit')}.", ""]
     calib = calibration_rows()
     if calib:
         lines += ["## Rate sweep used to choose the arrival rate", "",
