@@ -4,6 +4,7 @@
 Every figure is the median of the runs, with the range (min-max) beside it. Nothing is computed that is
 not in the per-run files, and nothing is typed by hand.
 """
+import collections
 import csv
 import gzip
 import json
@@ -106,6 +107,8 @@ def scenario_summary(runs):
                     "container_restarted_ready_seconds"] if runs and k in runs[0]["detail"]},
         "container_exit_codes": sorted({r["detail"]["container_exit_code"] for r in runs
                                         if "container_exit_code" in r["detail"]}),
+        "non_201_statuses": dict(sorted(sum((collections.Counter({k: v for k, v in r["status_counts"].items() if k != "201"})
+                                             for r in runs), collections.Counter()).items())),
     }
 
 
@@ -210,6 +213,13 @@ def main():
                      f"every timed batch (`docker-ps-start.txt`, `docker-ps-end.txt`; container names withheld). "
                      f"In them {min(others)} to {max(others)} containers unrelated to this project were running.")
         lines.append("")
+    for sc in ORDER:
+        s = summary.get(sc)
+        if s and s["non_201_statuses"]:
+            codes = ", ".join(f"status {k}: {v}" for k, v in s["non_201_statuses"].items())
+            lines.append(f"**{LABEL[sc]}**, responses other than 201 over the {s['runs']} runs ({codes}; status 0 means the "
+                         f"connection failed before a response, 200 is Dispatch's answer to a repeated Idempotency-Key).")
+            lines.append("")
     for sc in ORDER:
         s = summary.get(sc)
         if s and s["detail"]:

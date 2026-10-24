@@ -1,0 +1,63 @@
+2026-10-24T12:13:55Z batch sigkill: run sigkill --runs 5 --rate 40 --duration 120 --fault-at 30 --window 60
+2026-10-24T12:13:55Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:14:55Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:15:56Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:16:57Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:17:57Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:18:58Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:19:58Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:20:59Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:22:00Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:23:00Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:24:01Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:25:01Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:26:02Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:27:03Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:28:03Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:29:04Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:30:05Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:31:05Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:32:06Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:33:06Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:34:07Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:35:08Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:36:08Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:37:09Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:38:10Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:39:10Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:40:11Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:41:12Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:42:12Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:43:13Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:44:14Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:45:14Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:46:15Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:47:15Z measurement lock held by [P4 2026-10-24T12:11:03Z]; waiting
+2026-10-24T12:47:48Z measurement lock acquired after waiting 2012s
+2026-10-24T12:47:49Z switching the release to autoscaling.enabled=false
+2026-10-24T12:47:57Z --- sigkill run 1: settling
+2026-10-24T12:48:16Z load started (k6 clock 1792846096.479); fault at +30s
+2026-10-24T12:48:49Z fault done; cluster recovery 2.2s
+2026-10-24T12:50:16Z k6 exited 0
+2026-10-24T12:50:17Z run 1: requests=4799 failed=9 dropped=0 p95(fault window)=6.360513 error_span=0.85s recovery=2.19
+2026-10-24T12:50:17Z --- sigkill run 2: settling
+2026-10-24T12:50:30Z load started (k6 clock 1792846230.341); fault at +30s
+2026-10-24T12:51:04Z fault done; cluster recovery 2.5s
+2026-10-24T12:52:30Z k6 exited 0
+2026-10-24T12:52:31Z run 2: requests=4799 failed=7 dropped=0 p95(fault window)=8.320949 error_span=0.525s recovery=2.54
+2026-10-24T12:52:31Z --- sigkill run 3: settling
+2026-10-24T12:52:45Z load started (k6 clock 1792846365.475); fault at +30s
+2026-10-24T12:53:19Z fault done; cluster recovery 2.7s
+2026-10-24T12:54:45Z k6 exited 0
+2026-10-24T12:54:46Z run 3: requests=4799 failed=5 dropped=0 p95(fault window)=8.582407 error_span=0.763s recovery=2.72
+2026-10-24T12:54:46Z --- sigkill run 4: settling
+2026-10-24T12:55:01Z load started (k6 clock 1792846500.816); fault at +30s
+2026-10-24T12:55:35Z fault done; cluster recovery 3.0s
+2026-10-24T12:57:01Z k6 exited 0
+2026-10-24T12:57:01Z run 4: requests=4799 failed=2 dropped=0 p95(fault window)=8.513084 error_span=0.425s recovery=2.96
+2026-10-24T12:57:01Z --- sigkill run 5: settling
+2026-10-24T12:57:17Z load started (k6 clock 1792846636.869); fault at +30s
+2026-10-24T12:57:50Z fault done; cluster recovery 3.2s
+2026-10-24T12:59:17Z k6 exited 0
+2026-10-24T12:59:17Z run 5: requests=4799 failed=3 dropped=0 p95(fault window)=7.080805 error_span=0.274s recovery=3.19
+2026-10-24T12:59:18Z measurement lock released
