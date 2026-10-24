@@ -41,13 +41,18 @@ termination:
   workerAttempt: 5
   margin: 10
 
+# Sized from measurements (kubectl top samples are stored in results/*/run-*.json): an idle replica uses
+# about 20 millicores (four workers polling for due jobs), and at 40 requests/s spread over three replicas
+# each uses about 200 millicores and under 12 MiB. The CPU request is what the autoscaler's utilisation is
+# relative to; 250m puts that load near 80 percent of the request, above the 60 percent target, so a rate
+# of that size makes the autoscaler add replicas and the experiments that need a fixed count switch it off.
 resources:
   requests:
-    cpu: 100m
-    memory: 64Mi
+    cpu: 250m
+    memory: 32Mi
   limits:
-    cpu: 500m
-    memory: 192Mi
+    cpu: 750m
+    memory: 128Mi
 
 probes:
   startup:

@@ -27,6 +27,7 @@ import os
 import re
 import subprocess
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -47,8 +48,15 @@ EXPECTED_REPLICAS = 3  # autoscaling.minReplicas in the chart
 
 
 # ------------------------------------------------------------------------------------------ helpers
+LOGFILE = None  # set by batch(): every line is also appended to results/<scenario>/harness.log
+
+
 def log(msg):
-    print(f"{datetime.datetime.now(datetime.timezone.utc).strftime('%H:%M:%SZ')} {msg}", flush=True)
+    line = f"{datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')} {msg}"
+    print(line, flush=True)
+    if LOGFILE is not None:
+        with open(LOGFILE, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
 
 
 def sh(args, check=True, timeout=None, kube=True, input_text=None):
@@ -106,7 +114,13 @@ def ready_pods(pods=None):
     return [p for p in (pods if pods is not None else api_pods()) if p["ready"] and not p["deleting"]]
 
 
+def hpa_exists():
+    return sh(["kubectl", "-n", NS, "get", "hpa", RELEASE], check=False).returncode == 0
+
+
 def hpa_status():
+    if not hpa_exists():
+        return {"current": None, "desired": None, "cpu_pct": None}
     st = kubectl_json("get", "hpa", RELEASE)["status"]
     cpu = None
     for m in st.get("currentMetrics", []) or []:
@@ -167,9 +181,20 @@ def release_lock():
 
 
 # ----------------------------------------------------------------------------- steady-state checks
+def ensure_mode(want_hpa):
+    """The fault scenarios run with a fixed 3 replicas (autoscaler off) so the replica count is the same in
+    every run; the autoscaler scenario runs with it on. Switch with helm when the cluster is the other way."""
+    if hpa_exists() == want_hpa:
+        return
+    log(f"switching the release to autoscaling.enabled={str(want_hpa).lower()}")
+    helm("upgrade", RELEASE, str(ROOT / "charts" / "dispatch"), "--reset-then-reuse-values",
+         "--set", f"autoscaling.enabled={str(want_hpa).lower()}", "--set", f"replicaCount={EXPECTED_REPLICAS}",
+         "--wait", "--timeout", "5m")
+
+
 def settle(timeout=420):
     """Wait until the cluster is in the starting state of a run: the minimum replicas Ready, nothing
-    terminating, the autoscaler at its minimum, no delivery backlog. Returns what it saw."""
+    terminating, the autoscaler (when on) at its minimum, no delivery backlog. Returns what it saw."""
     t0 = time.time()
     last = None
     while time.time() - t0 < timeout:
@@ -182,8 +207,8 @@ def settle(timeout=420):
             bl = None
         last = {"ready": len(rp), "pods": len(pods), "hpa_current": hp["current"], "hpa_desired": hp["desired"],
                 "backlog": bl}
-        if (len(rp) == EXPECTED_REPLICAS and len(pods) == EXPECTED_REPLICAS and hp["current"] == EXPECTED_REPLICAS
-                and hp["desired"] == EXPECTED_REPLICAS and bl == 0):
+        hpa_ok = (hp["current"] is None) or (hp["current"] == EXPECTED_REPLICAS and hp["desired"] == EXPECTED_REPLICAS)
+        if len(rp) == EXPECTED_REPLICAS and len(pods) == EXPECTED_REPLICAS and hpa_ok and bl == 0:
             last["settle_seconds"] = round(time.time() - t0, 1)
             return last
         time.sleep(3)
@@ -194,6 +219,45 @@ def rebalance_pods():
     """Return the API pods to a known placement before a run: a rollout restart, then wait."""
     sh(["kubectl", "-n", NS, "rollout", "restart", f"deployment/{RELEASE}"])
     sh(["kubectl", "-n", NS, "rollout", "status", f"deployment/{RELEASE}", "--timeout=180s"])
+
+
+class TopSampler(threading.Thread):
+    """`kubectl top pods` every few seconds (metrics-server resolution is 15 s); used to size the CPU request."""
+
+    def __init__(self, interval=15):
+        super().__init__(daemon=True)
+        self.interval = interval
+        self.halt = threading.Event()
+        self.samples = []
+
+    def run(self):
+        while not self.halt.is_set():
+            try:
+                t = vm_now()
+                out = sh(["kubectl", "-n", NS, "top", "pods", "--no-headers"], check=False).stdout
+                api, pg, rcv = [], None, []
+                for line in out.splitlines():
+                    parts = line.split()
+                    if len(parts) < 3:
+                        continue
+                    cpu = int(parts[1].rstrip("m"))
+                    if parts[0].startswith("dispatch-postgres"):
+                        pg = cpu
+                    elif parts[0].startswith("dispatch-receiver"):
+                        rcv.append(cpu)
+                    else:
+                        api.append(cpu)
+                self.samples.append({"vm_epoch": t, "api_cpu_m": api, "postgres_cpu_m": pg, "receiver_cpu_m": rcv})
+            except Exception:  # noqa: BLE001 - a missed sample is not an error
+                pass
+            self.halt.wait(self.interval)
+
+    def stop(self, load_start):
+        self.halt.set()
+        self.join(timeout=30)
+        return [{"offset_s": round(s["vm_epoch"] - load_start, 1), "api_cpu_m": s["api_cpu_m"],
+                 "postgres_cpu_m": s["postgres_cpu_m"], "receiver_cpu_m": s["receiver_cpu_m"]}
+                for s in self.samples]
 
 
 # --------------------------------------------------------------------------------------------- k6
@@ -286,7 +350,7 @@ def helm(*args, timeout=600, check=True):
 
 def fault_rolling(ctx):
     t = time.time()
-    helm("upgrade", RELEASE, str(ROOT / "charts" / "dispatch"), "--reuse-values",
+    helm("upgrade", RELEASE, str(ROOT / "charts" / "dispatch"), "--reset-then-reuse-values",
          "--set-string", f"podAnnotations.rolloutId={ctx['run_id']}", "--wait", "--timeout", "5m")
     ctx["detail"] = {"helm_upgrade_seconds": round(time.time() - t, 2)}
     return time.time() - t
@@ -326,7 +390,7 @@ def fault_drain(ctx):
 def fault_badrelease(ctx):
     deadline = ctx["rollout_deadline_s"]
     t0 = time.time()
-    up = helm("upgrade", RELEASE, str(ROOT / "charts" / "dispatch"), "--reuse-values", "--set", "image.tag=bad",
+    up = helm("upgrade", RELEASE, str(ROOT / "charts" / "dispatch"), "--reset-then-reuse-values", "--set", "image.tag=bad",
               "--wait", "--timeout", f"{deadline}s", check=False)
     t_detect = time.time()
     rollout_failed = up.returncode != 0
@@ -363,6 +427,8 @@ def run_once(sc, n, args, outdir):
     duration = args.duration
     stages = [{"duration": f"{duration}s", "target": args.rate}]
     proc, raw = start_k6(workdir, run_id, stages, args.rate, args.max_vus)
+    sampler = TopSampler()
+    sampler.start()
     try:
         load_start = first_sample_time(raw)
         log(f"load started (k6 clock {load_start:.3f}); fault at +{args.fault_at}s")
@@ -377,6 +443,8 @@ def run_once(sc, n, args, outdir):
     except Exception:
         sh(["docker", "rm", "-f", "p1-k6"], check=False, kube=False)
         raise
+    finally:
+        top_samples = sampler.stop(load_start) if "load_start" in locals() else []
     log(f"k6 exited {rc}")
     rows, dropped = load_requests(raw, load_start)
     W = args.window
@@ -395,6 +463,7 @@ def run_once(sc, n, args, outdir):
         "error_window": error_window(rows),
         "cluster_recovery_s": None if recovery is None else round(recovery, 2),
         "detail": ctx.get("detail", {}),
+        "top_samples": top_samples,
     }
     for r in rows:
         result["status_counts"][r[2]] = result["status_counts"].get(r[2], 0) + 1
@@ -423,9 +492,9 @@ def run_hpa(n, args, outdir):
     log(f"--- hpa run {n}: settling")
     before = settle()
     lead, hold = args.hpa_lead, args.hpa_hold
-    stages = [{"duration": f"{lead}s", "target": args.rate}, {"duration": "1s", "target": args.hpa_rate},
+    stages = [{"duration": f"{lead}s", "target": args.hpa_base_rate}, {"duration": "1s", "target": args.hpa_rate},
               {"duration": f"{hold}s", "target": args.hpa_rate}]
-    proc, raw = start_k6(workdir, run_id, stages, args.rate, args.max_vus)
+    proc, raw = start_k6(workdir, run_id, stages, args.hpa_base_rate, args.max_vus)
     samples = []
     try:
         load_start = first_sample_time(raw)
@@ -446,7 +515,7 @@ def run_hpa(n, args, outdir):
             except RuntimeError as e:
                 samples.append({"t": round(now - load_start, 2), "error": str(e)[:80]})
             time.sleep(1.0)
-        rc = proc.wait(timeout=240)
+        rc = proc.wait(timeout=300)
     except Exception:
         sh(["docker", "rm", "-f", "p1-k6"], check=False, kube=False)
         raise
@@ -463,7 +532,7 @@ def run_hpa(n, args, outdir):
     ready_max = max((s["ready"] or 0) for s in samples if "error" not in s)
     out = {
         "scenario": "hpa", "run": n, "run_id": run_id,
-        "params": {"rate_before_per_s": args.rate, "rate_after_per_s": args.hpa_rate, "lead_s": lead,
+        "params": {"rate_before_per_s": args.hpa_base_rate, "rate_after_per_s": args.hpa_rate, "lead_s": lead,
                    "hold_s": hold, "k6_image": K6_IMAGE, "cpu_target_pct": 60, "metrics_resolution_s": 15},
         "settled_before": before, "k6_exit": rc, "requests": len(rows),
         "failed": sum(1 for r in rows if r[2] != "201"), "dropped_iterations": dropped,
@@ -526,14 +595,18 @@ def capture_env():
 
 def batch(args):
     sc = args.scenario
-    outdir = RESULTS / sc
+    outdir = Path(args.results_dir) / sc
     outdir.mkdir(parents=True, exist_ok=True)
+    global LOGFILE
+    LOGFILE = outdir / "harness.log"
+    log(f"batch {sc}: {' '.join(sys.argv[1:])}")
     waited = acquire_lock() if not args.no_lock else 0
     try:
         ps = sh(["docker", "ps", "--format", "table {{.Names}}\t{{.Status}}\t{{.Ports}}"], kube=False).stdout
         (outdir / "docker-ps-start.txt").write_text(
             f"# docker ps at the start of the {sc} batch ({datetime.datetime.now(datetime.timezone.utc).isoformat()}, "
             f"waited {waited}s for the lock)\n{ps}", encoding="utf-8")
+        ensure_mode(sc == "hpa")
         for n in range(args.first_run, args.first_run + args.runs):
             if sc == "hpa":
                 run_hpa(n, args, outdir)
@@ -556,15 +629,17 @@ def main():
     r.add_argument("scenario", choices=["baseline", "rolling", "kill", "drain", "badrelease", "hpa"])
     r.add_argument("--runs", type=int, default=5)
     r.add_argument("--first-run", type=int, default=1)
-    r.add_argument("--rate", type=int, default=60, help="arrivals per second")
+    r.add_argument("--rate", type=int, default=40, help="arrivals per second")
     r.add_argument("--duration", type=int, default=120)
     r.add_argument("--fault-at", type=int, default=30)
     r.add_argument("--window", type=int, default=60, help="fault window length for the per-window figures")
     r.add_argument("--max-vus", type=int, default=600)
     r.add_argument("--rollout-deadline", type=int, default=45)
-    r.add_argument("--hpa-rate", type=int, default=400)
+    r.add_argument("--hpa-base-rate", type=int, default=10, help="autoscaler scenario: arrivals/s before the step")
+    r.add_argument("--hpa-rate", type=int, default=60, help="autoscaler scenario: arrivals/s after the step")
     r.add_argument("--hpa-lead", type=int, default=30)
     r.add_argument("--hpa-hold", type=int, default=240)
+    r.add_argument("--results-dir", default=str(RESULTS), help="where to write run files (calibration uses another)")
     r.add_argument("--no-lock", action="store_true", help="calibration and debugging only; never for reported runs")
     args = ap.parse_args()
     if args.cmd == "capture-env":

@@ -74,11 +74,11 @@ done
 echo "delivered"
 
 echo "== rolling upgrade"
-"${helm_dispatch[@]}" upgrade dispatch charts/dispatch --reuse-values --set-string podAnnotations.rolloutId=smoke \
+"${helm_dispatch[@]}" upgrade dispatch charts/dispatch --reset-then-reuse-values --set-string podAnnotations.rolloutId=smoke \
   --wait --timeout 5m
 
 echo "== bad release, then rollback"
-if "${helm_dispatch[@]}" upgrade dispatch charts/dispatch --reuse-values --set image.tag=bad --wait --timeout 60s; then
+if "${helm_dispatch[@]}" upgrade dispatch charts/dispatch --reset-then-reuse-values --set image.tag=bad --wait --timeout 60s; then
   echo "the bad release was expected to fail"
   exit 1
 fi

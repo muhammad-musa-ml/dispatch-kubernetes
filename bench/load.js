@@ -17,6 +17,7 @@ export const options = {
       timeUnit: '1s',
       preAllocatedVUs: 100,
       maxVUs: Number(__ENV.MAX_VUS || 600),
+      gracefulStop: '6s', // a request times out after 5 s, so nothing legitimate is still running later
       stages: stages,
     },
   },

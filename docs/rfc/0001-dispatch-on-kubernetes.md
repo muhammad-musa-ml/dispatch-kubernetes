@@ -80,9 +80,13 @@ terraform/
   envs/local/             wires cluster-kind into platform
 ```
 
-`platform` takes a Kubernetes endpoint and credentials and knows nothing about kind. A cloud environment
-would add `envs/<cloud>/` with its own cluster module that returns the same connection object, and set the
-chart values that differ (Service type, storage class, an external database). Secrets are created by
+`platform` is configured only through the `kubernetes` and `helm` providers and knows nothing about kind.
+The interface between the two modules is the path of a kubeconfig that reaches the cluster. (The first
+version passed the kind provider's endpoint and certificate attributes to the providers instead;
+`terraform destroy` then failed during its refresh, because the provider returned them empty, so the
+kubeconfig file is the interface.) A cloud environment would add `envs/<cloud>/` with its own cluster
+module that returns a kubeconfig the same way, and set the chart values that differ (Service type,
+storage class, an external database). Secrets are created by
 Terraform from `random_password` resources and read by the charts by name; the charts never contain a
 credential.
 

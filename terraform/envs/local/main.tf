@@ -36,19 +36,15 @@ module "cluster" {
   preload_images  = [local.api_image, local.migrate_image]
 }
 
+# Providers read the kubeconfig the cluster module wrote. Building them from the kind provider's endpoint
+# and certificate attributes instead leaves them empty during `terraform destroy`'s refresh.
 provider "kubernetes" {
-  host                   = module.cluster.connection.host
-  cluster_ca_certificate = module.cluster.connection.cluster_ca_certificate
-  client_certificate     = module.cluster.connection.client_certificate
-  client_key             = module.cluster.connection.client_key
+  config_path = module.cluster.kubeconfig_path
 }
 
 provider "helm" {
   kubernetes = {
-    host                   = module.cluster.connection.host
-    cluster_ca_certificate = module.cluster.connection.cluster_ca_certificate
-    client_certificate     = module.cluster.connection.client_certificate
-    client_key             = module.cluster.connection.client_key
+    config_path = module.cluster.kubeconfig_path
   }
 }
 
