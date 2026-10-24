@@ -1,0 +1,83 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: azure/setup-helm@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Helm lint
+        run: |
+          helm lint charts/dispatch charts/dispatch-postgres
+          helm lint charts/dispatch --set service.type=NodePort --set service.nodePort=30080 --set autoscaling.enabled=false
+      - name: Render and validate manifests
+        run: |
+          curl -sSL https://github.com/yannh/kubeconform/releases/download/v0.7.0/kubeconform-linux-amd64.tar.gz | tar xz kubeconform
+          helm template dispatch charts/dispatch | ./kubeconform -strict -summary -kubernetes-version 1.34.0
+          helm template dispatch-postgres charts/dispatch-postgres | ./kubeconform -strict -summary -kubernetes-version 1.34.0
+      - name: Terraform format and validate
+        run: |
+          terraform fmt -check -recursive terraform
+          terraform -chdir=terraform/envs/local init -backend=false -input=false
+          terraform -chdir=terraform/envs/local validate
+      - name: Shell and Python checks
+        run: |
+          shellcheck scripts/*.sh docker/migrate/migrate.sh
+          python3 -m py_compile bench/harness.py bench/summarize.py
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Build images from source
+        run: bash scripts/build-images.sh
+      - name: Save images
+        run: |
+          sha=$(git -C vendor/dispatch-api rev-parse --short=7 HEAD)
+          docker save dispatch-api:${sha} dispatch-migrate:${sha} dispatch-api:bad -o images.tar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: images
+          path: images.tar
+          retention-days: 1
+
+  smoke:
+    needs: [lint, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: azure/setup-helm@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: images
+      - uses: helm/kind-action@v1
+        with:
+          cluster_name: dispatch-ci
+          config: ci/kind-config.yaml
+      - name: Load images into the cluster
+        run: |
+          docker load -i images.tar
+          sha=$(git -C vendor/dispatch-api rev-parse --short=7 HEAD)
+          kind load docker-image dispatch-api:${sha} dispatch-migrate:${sha} dispatch-api:bad --name dispatch-ci
+      - name: Smoke deploy, delivery, rolling upgrade, bad release and rollback
+        run: bash scripts/smoke.sh
+      - name: Cluster state on failure
+        if: failure()
+        run: |
+          kubectl get pods -A -o wide || true
+          kubectl -n dispatch describe pods || true
+          kubectl -n dispatch logs -l app.kubernetes.io/component=api --tail=50 --all-containers || true

@@ -26,6 +26,10 @@ spec:
         runAsGroup: 65532
         seccompProfile:
           type: RuntimeDefault
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: receiver
           image: {{ printf "%s:%s" (default .Values.image.repository .Values.receiver.image.repository) (default (default .Chart.AppVersion .Values.image.tag) .Values.receiver.image.tag) | quote }}

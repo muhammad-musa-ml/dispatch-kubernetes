@@ -21,7 +21,7 @@ resource "kind_cluster" "this" {
       for_each = range(var.worker_count)
       content {
         role   = "worker"
-        labels = node.key == 0 ? { (var.data_node_label.key) = var.data_node_label.value } : {}
+        labels = node.key == 0 ? { (var.data_node_label.key) = var.data_node_label.value } : { (var.app_node_label.key) = var.app_node_label.value }
       }
     }
   }

@@ -1,0 +1,11 @@
+# Ephemeral CI cluster: one control plane and two workers, labelled the way the Terraform module labels them.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+    labels:
+      dispatch-kubernetes/role: data
+  - role: worker
+    labels:
+      dispatch-kubernetes/role: app

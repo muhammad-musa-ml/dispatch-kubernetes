@@ -63,7 +63,10 @@ module "platform" {
   node_port         = var.node_port
 
   database_node_selector = { "dispatch-kubernetes/role" = "data" }
-  dispatch_values        = var.dispatch_values
+  dispatch_values = merge({
+    # The API and the receiver run on the app nodes only, so the experiments can drain one of them.
+    nodeSelector = { "dispatch-kubernetes/role" = "app" }
+  }, var.dispatch_values)
 
   depends_on = [module.cluster]
 }

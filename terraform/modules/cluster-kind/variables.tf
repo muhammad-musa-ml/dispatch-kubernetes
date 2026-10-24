@@ -22,6 +22,12 @@ variable "data_node_label" {
   default     = { key = "dispatch-kubernetes/role", value = "data" }
 }
 
+variable "app_node_label" {
+  description = "Label (key and value) put on every other worker, where the API and the receiver are scheduled."
+  type        = object({ key = string, value = string })
+  default     = { key = "dispatch-kubernetes/role", value = "app" }
+}
+
 variable "node_port" {
   description = "NodePort of the Dispatch Service, published on the control-plane node."
   type        = number
