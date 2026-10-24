@@ -132,7 +132,8 @@ exits immediately because the receiver refuses to start without its own secret.
 
 ## Measurement design
 
-The load generator is k6 using a constant-arrival-rate executor (open loop): a request is started on
+The load generator is k6 using an arrival-rate executor (open loop; `ramping-arrival-rate`, so that one
+script also serves the autoscaler's load step): a request is started on
 schedule whether or not earlier ones have finished, so a stall shows up as failures and latency instead of
 the client quietly slowing down. Each request is `POST /v1/events` with a fresh idempotency key. A request
 counts as failed on a transport error, a timeout of 5 seconds, or any status other than 201.
