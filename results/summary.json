@@ -1,0 +1,765 @@
+{
+  "baseline": {
+    "api_cpu_load_m": {
+      "median": 125,
+      "min": 119,
+      "max": 137.0,
+      "n": 5
+    },
+    "postgres_cpu_load_m": {
+      "median": 440,
+      "min": 425,
+      "max": 483.0,
+      "n": 5
+    },
+    "window_s": 60,
+    "fault_at_s": 30,
+    "rate_per_s": 40,
+    "p95_baseline_same_window_ms": {
+      "median": 17.7,
+      "min": 10.9,
+      "max": 43.7,
+      "n": 5
+    },
+    "runs": 5,
+    "requests": {
+      "median": 6799,
+      "min": 6799,
+      "max": 6799,
+      "n": 5
+    },
+    "failed": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "failed_total": 0,
+    "requests_total": 33995,
+    "dropped_iterations": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "p95_overall_ms": {
+      "median": 12.5,
+      "min": 11.4,
+      "max": 15.4,
+      "n": 5
+    },
+    "p95_pre_ms": {
+      "median": 11.9,
+      "min": 8.5,
+      "max": 52.0,
+      "n": 5
+    },
+    "p95_fault_window_ms": {
+      "median": 17.7,
+      "min": 10.9,
+      "max": 43.7,
+      "n": 5
+    },
+    "max_fault_window_ms": {
+      "median": 392.7,
+      "min": 123.7,
+      "max": 627.3,
+      "n": 5
+    },
+    "p95_post_ms": {
+      "median": 10.7,
+      "min": 8.7,
+      "max": 14.9,
+      "n": 5
+    },
+    "error_span_s": {
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "n": 5
+    },
+    "runs_with_failures": 0,
+    "cluster_recovery_s": null,
+    "detail": {},
+    "container_exit_codes": [],
+    "non_201_statuses": {}
+  },
+  "rolling": {
+    "api_cpu_load_m": {
+      "median": 130.0,
+      "min": 117.0,
+      "max": 134.0,
+      "n": 5
+    },
+    "postgres_cpu_load_m": {
+      "median": 523,
+      "min": 448,
+      "max": 547,
+      "n": 5
+    },
+    "window_s": 60,
+    "fault_at_s": 30,
+    "rate_per_s": 40,
+    "p95_baseline_same_window_ms": {
+      "median": 17.7,
+      "min": 10.9,
+      "max": 43.7,
+      "n": 5
+    },
+    "runs": 5,
+    "requests": {
+      "median": 4799,
+      "min": 4799,
+      "max": 4799,
+      "n": 5
+    },
+    "failed": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "failed_total": 0,
+    "requests_total": 23995,
+    "dropped_iterations": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "p95_overall_ms": {
+      "median": 11.6,
+      "min": 9.7,
+      "max": 144.6,
+      "n": 5
+    },
+    "p95_pre_ms": {
+      "median": 10.6,
+      "min": 9.6,
+      "max": 54.1,
+      "n": 5
+    },
+    "p95_fault_window_ms": {
+      "median": 13.1,
+      "min": 9.7,
+      "max": 294.6,
+      "n": 5
+    },
+    "max_fault_window_ms": {
+      "median": 247.5,
+      "min": 49.8,
+      "max": 1229.0,
+      "n": 5
+    },
+    "p95_post_ms": {
+      "median": 10.6,
+      "min": 9.1,
+      "max": 76.9,
+      "n": 5
+    },
+    "error_span_s": {
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "n": 5
+    },
+    "runs_with_failures": 0,
+    "cluster_recovery_s": {
+      "median": 13.5,
+      "min": 12.3,
+      "max": 18.0,
+      "n": 5
+    },
+    "detail": {
+      "helm_upgrade_seconds": {
+        "median": 13.5,
+        "min": 12.3,
+        "max": 18.0,
+        "n": 5
+      }
+    },
+    "container_exit_codes": [],
+    "non_201_statuses": {}
+  },
+  "rolling-nosleep": {
+    "api_cpu_load_m": {
+      "median": 114.0,
+      "min": 106.0,
+      "max": 123,
+      "n": 5
+    },
+    "postgres_cpu_load_m": {
+      "median": 440,
+      "min": 425,
+      "max": 448,
+      "n": 5
+    },
+    "window_s": 60,
+    "fault_at_s": 30,
+    "rate_per_s": 40,
+    "p95_baseline_same_window_ms": {
+      "median": 17.7,
+      "min": 10.9,
+      "max": 43.7,
+      "n": 5
+    },
+    "runs": 5,
+    "requests": {
+      "median": 4799,
+      "min": 4799,
+      "max": 4799,
+      "n": 5
+    },
+    "failed": {
+      "median": 21,
+      "min": 4,
+      "max": 23,
+      "n": 5
+    },
+    "failed_total": 78,
+    "requests_total": 23995,
+    "dropped_iterations": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "p95_overall_ms": {
+      "median": 7.5,
+      "min": 6.8,
+      "max": 8.8,
+      "n": 5
+    },
+    "p95_pre_ms": {
+      "median": 8.6,
+      "min": 5.6,
+      "max": 9.0,
+      "n": 5
+    },
+    "p95_fault_window_ms": {
+      "median": 6.5,
+      "min": 6.2,
+      "max": 9.1,
+      "n": 5
+    },
+    "max_fault_window_ms": {
+      "median": 108.4,
+      "min": 38.2,
+      "max": 213.6,
+      "n": 5
+    },
+    "p95_post_ms": {
+      "median": 8.1,
+      "min": 5.7,
+      "max": 8.4,
+      "n": 5
+    },
+    "error_span_s": {
+      "median": 8.45,
+      "min": 3.35,
+      "max": 8.87,
+      "n": 5
+    },
+    "runs_with_failures": 5,
+    "cluster_recovery_s": {
+      "median": 9.7,
+      "min": 9.3,
+      "max": 10.3,
+      "n": 5
+    },
+    "detail": {
+      "helm_upgrade_seconds": {
+        "median": 9.7,
+        "min": 9.3,
+        "max": 10.3,
+        "n": 5
+      }
+    },
+    "container_exit_codes": [],
+    "non_201_statuses": {
+      "0": 78
+    }
+  },
+  "kill": {
+    "api_cpu_load_m": {
+      "median": 124.0,
+      "min": 117,
+      "max": 129,
+      "n": 5
+    },
+    "postgres_cpu_load_m": {
+      "median": 433,
+      "min": 420,
+      "max": 451,
+      "n": 5
+    },
+    "window_s": 60,
+    "fault_at_s": 30,
+    "rate_per_s": 40,
+    "p95_baseline_same_window_ms": {
+      "median": 17.7,
+      "min": 10.9,
+      "max": 43.7,
+      "n": 5
+    },
+    "runs": 5,
+    "requests": {
+      "median": 4799,
+      "min": 4799,
+      "max": 4799,
+      "n": 5
+    },
+    "failed": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "failed_total": 0,
+    "requests_total": 23995,
+    "dropped_iterations": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "p95_overall_ms": {
+      "median": 15.6,
+      "min": 12.4,
+      "max": 18.3,
+      "n": 5
+    },
+    "p95_pre_ms": {
+      "median": 14.2,
+      "min": 8.3,
+      "max": 89.9,
+      "n": 5
+    },
+    "p95_fault_window_ms": {
+      "median": 13.4,
+      "min": 9.3,
+      "max": 86.2,
+      "n": 5
+    },
+    "max_fault_window_ms": {
+      "median": 437.2,
+      "min": 159.0,
+      "max": 536.8,
+      "n": 5
+    },
+    "p95_post_ms": {
+      "median": 9.1,
+      "min": 8.7,
+      "max": 175.5,
+      "n": 5
+    },
+    "error_span_s": {
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "n": 5
+    },
+    "runs_with_failures": 0,
+    "cluster_recovery_s": {
+      "median": 2.4,
+      "min": 1.8,
+      "max": 3.0,
+      "n": 5
+    },
+    "detail": {
+      "replacement_ready_seconds": {
+        "median": 2.4,
+        "min": 1.8,
+        "max": 3.0,
+        "n": 5
+      }
+    },
+    "container_exit_codes": [],
+    "non_201_statuses": {}
+  },
+  "sigkill": {
+    "api_cpu_load_m": {
+      "median": 122.0,
+      "min": 112.0,
+      "max": 125.0,
+      "n": 5
+    },
+    "postgres_cpu_load_m": {
+      "median": 415,
+      "min": 403,
+      "max": 454,
+      "n": 5
+    },
+    "window_s": 60,
+    "fault_at_s": 30,
+    "rate_per_s": 40,
+    "p95_baseline_same_window_ms": {
+      "median": 17.7,
+      "min": 10.9,
+      "max": 43.7,
+      "n": 5
+    },
+    "runs": 5,
+    "requests": {
+      "median": 4799,
+      "min": 4799,
+      "max": 4799,
+      "n": 5
+    },
+    "failed": {
+      "median": 5,
+      "min": 2,
+      "max": 9,
+      "n": 5
+    },
+    "failed_total": 26,
+    "requests_total": 23995,
+    "dropped_iterations": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "p95_overall_ms": {
+      "median": 8.3,
+      "min": 6.7,
+      "max": 9.0,
+      "n": 5
+    },
+    "p95_pre_ms": {
+      "median": 9.0,
+      "min": 6.9,
+      "max": 9.5,
+      "n": 5
+    },
+    "p95_fault_window_ms": {
+      "median": 8.3,
+      "min": 6.4,
+      "max": 8.6,
+      "n": 5
+    },
+    "max_fault_window_ms": {
+      "median": 77.6,
+      "min": 29.8,
+      "max": 126.8,
+      "n": 5
+    },
+    "p95_post_ms": {
+      "median": 8.3,
+      "min": 6.2,
+      "max": 11.0,
+      "n": 5
+    },
+    "error_span_s": {
+      "median": 0.53,
+      "min": 0.27,
+      "max": 0.85,
+      "n": 5
+    },
+    "runs_with_failures": 5,
+    "cluster_recovery_s": {
+      "median": 2.7,
+      "min": 2.2,
+      "max": 3.2,
+      "n": 5
+    },
+    "detail": {
+      "container_restarted_ready_seconds": {
+        "median": 2.7,
+        "min": 2.2,
+        "max": 3.2,
+        "n": 5
+      }
+    },
+    "container_exit_codes": [
+      "137"
+    ],
+    "non_201_statuses": {
+      "0": 25,
+      "200": 1
+    }
+  },
+  "drain": {
+    "api_cpu_load_m": {
+      "median": 113,
+      "min": 100,
+      "max": 120,
+      "n": 5
+    },
+    "postgres_cpu_load_m": {
+      "median": 427,
+      "min": 423,
+      "max": 433,
+      "n": 5
+    },
+    "window_s": 60,
+    "fault_at_s": 30,
+    "rate_per_s": 40,
+    "p95_baseline_same_window_ms": {
+      "median": 17.7,
+      "min": 10.9,
+      "max": 43.7,
+      "n": 5
+    },
+    "runs": 5,
+    "requests": {
+      "median": 4799,
+      "min": 4799,
+      "max": 4799,
+      "n": 5
+    },
+    "failed": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "failed_total": 0,
+    "requests_total": 23995,
+    "dropped_iterations": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "p95_overall_ms": {
+      "median": 9.0,
+      "min": 8.6,
+      "max": 14.6,
+      "n": 5
+    },
+    "p95_pre_ms": {
+      "median": 8.4,
+      "min": 8.2,
+      "max": 171.4,
+      "n": 5
+    },
+    "p95_fault_window_ms": {
+      "median": 9.3,
+      "min": 8.2,
+      "max": 16.0,
+      "n": 5
+    },
+    "max_fault_window_ms": {
+      "median": 79.7,
+      "min": 23.3,
+      "max": 777.0,
+      "n": 5
+    },
+    "p95_post_ms": {
+      "median": 9.2,
+      "min": 8.3,
+      "max": 9.5,
+      "n": 5
+    },
+    "error_span_s": {
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "n": 5
+    },
+    "runs_with_failures": 0,
+    "cluster_recovery_s": {
+      "median": 12.1,
+      "min": 12.0,
+      "max": 13.1,
+      "n": 5
+    },
+    "detail": {
+      "kubectl_drain_seconds": {
+        "median": 11.8,
+        "min": 11.8,
+        "max": 12.9,
+        "n": 5
+      },
+      "pods_ready_again_seconds": {
+        "median": 12.1,
+        "min": 12.0,
+        "max": 13.1,
+        "n": 5
+      }
+    },
+    "container_exit_codes": [],
+    "non_201_statuses": {}
+  },
+  "badrelease": {
+    "api_cpu_load_m": {
+      "median": 119,
+      "min": 119,
+      "max": 125,
+      "n": 5
+    },
+    "postgres_cpu_load_m": {
+      "median": 427,
+      "min": 406,
+      "max": 469,
+      "n": 5
+    },
+    "window_s": 100,
+    "fault_at_s": 30,
+    "rate_per_s": 40,
+    "p95_baseline_same_window_ms": {
+      "median": 12.8,
+      "min": 10.9,
+      "max": 24.2,
+      "n": 5
+    },
+    "runs": 5,
+    "requests": {
+      "median": 6799,
+      "min": 6799,
+      "max": 6799,
+      "n": 5
+    },
+    "failed": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "failed_total": 0,
+    "requests_total": 33995,
+    "dropped_iterations": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "p95_overall_ms": {
+      "median": 9.3,
+      "min": 7.7,
+      "max": 23.9,
+      "n": 5
+    },
+    "p95_pre_ms": {
+      "median": 8.3,
+      "min": 7.7,
+      "max": 10.1,
+      "n": 5
+    },
+    "p95_fault_window_ms": {
+      "median": 9.9,
+      "min": 6.9,
+      "max": 66.5,
+      "n": 5
+    },
+    "max_fault_window_ms": {
+      "median": 361.2,
+      "min": 44.4,
+      "max": 623.1,
+      "n": 5
+    },
+    "p95_post_ms": {
+      "median": 11.3,
+      "min": 8.5,
+      "max": 16.4,
+      "n": 5
+    },
+    "error_span_s": {
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "n": 5
+    },
+    "runs_with_failures": 0,
+    "cluster_recovery_s": {
+      "median": 1.6,
+      "min": 1.5,
+      "max": 2.5,
+      "n": 5
+    },
+    "detail": {
+      "upgrade_to_detection_seconds": {
+        "median": 51.6,
+        "min": 51.1,
+        "max": 52.1,
+        "n": 5
+      },
+      "rollback_seconds": {
+        "median": 0.7,
+        "min": 0.7,
+        "max": 0.8,
+        "n": 5
+      },
+      "bad_release_to_restored_seconds": {
+        "median": 53.8,
+        "min": 53.3,
+        "max": 53.8,
+        "n": 5
+      },
+      "rollback_to_ready_seconds": {
+        "median": 1.6,
+        "min": 1.5,
+        "max": 2.5,
+        "n": 5
+      }
+    },
+    "container_exit_codes": [],
+    "non_201_statuses": {}
+  },
+  "hpa": {
+    "runs": 5,
+    "rate_before_per_s": 10,
+    "rate_after_per_s": 60,
+    "seconds_to_first_scale_decision": {
+      "median": 57.1,
+      "min": 40.7,
+      "max": 58.2,
+      "n": 5
+    },
+    "seconds_to_first_new_pod_ready": {
+      "median": 58.9,
+      "min": 43.6,
+      "max": 61.0,
+      "n": 5
+    },
+    "seconds_to_all_desired_ready": {
+      "median": 59.2,
+      "min": 43.6,
+      "max": 162.3,
+      "n": 5
+    },
+    "desired_replicas_max": {
+      "median": 4,
+      "min": 4,
+      "max": 5,
+      "n": 5
+    },
+    "cpu_pct_before_step_max": {
+      "median": 10,
+      "min": 7,
+      "max": 11,
+      "n": 5
+    },
+    "cpu_pct_after_step_max": {
+      "median": 71,
+      "min": 70,
+      "max": 83,
+      "n": 5
+    },
+    "p95_before_step_ms": {
+      "median": 8.5,
+      "min": 7.8,
+      "max": 21.7,
+      "n": 5
+    },
+    "p95_after_step_ms": {
+      "median": 8.6,
+      "min": 7.1,
+      "max": 12.5,
+      "n": 5
+    },
+    "failed": {
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    },
+    "requests": {
+      "median": 14734,
+      "min": 14734,
+      "max": 14734,
+      "n": 5
+    }
+  }
+}
