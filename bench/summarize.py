@@ -168,9 +168,20 @@ def calibration_rows():
         r = json.loads(f.read_text(encoding="utf-8"))
         api, pg = cpu_samples([r])
         o = r["overall"]
+        start = end = "n/a"
+        log = d / "baseline" / "harness.log"
+        if log.is_file():
+            for ln in log.read_text(encoding="utf-8").splitlines():
+                m = re.match(r"(\S+Z) measurement lock acquired", ln)
+                if m:
+                    start = m.group(1)
+                m = re.match(r"(\S+Z) measurement lock released", ln)
+                if m:
+                    end = m.group(1)
+        api_s = f"{api['median']:g}" if api else "n/a"
+        pg_s = f"{pg['median']:g}" if pg else "n/a"
         rows.append(f"| {r['params']['rate_per_s']} | {r['requests']} | {r['failed']} | {r['dropped_iterations']} | "
-                    f"{o['p95_ms']:.1f} | {o['p99_ms']:.1f} | {o['max_ms']:.1f} | "
-                    f"{api['median'] if api else 'n/a'} | {pg['median'] if pg else 'n/a'} |")
+                    f"{o['p95_ms']:.1f} | {o['p99_ms']:.1f} | {o['max_ms']:.1f} | {api_s} | {pg_s} | {start} | {end} |")
     return rows
 
 
@@ -258,9 +269,12 @@ def main():
         lines += ["## Rate sweep used to choose the arrival rate", "",
                   "One 60-second run of the no-fault baseline per rate (autoscaler off, 3 API replicas), made with "
                   "`bench/run-calibration.sh`. One run each, so these are calibration figures and not results. "
-                  "CPU as above, in millicores.", "",
+                  "CPU as above, in millicores. Each run took the shared measurement lock for itself (UTC times from "
+                  "`results/calibration/rate-<n>/baseline/harness.log`); the runs were not back to back, because the "
+                  "lock was shared with other batches.", "",
                   "| arrival rate (requests/s) | requests sent | failed | k6 iterations dropped | p95 (ms) | p99 (ms) | "
-                  "max (ms) | API pod CPU | PostgreSQL CPU |", "|---|---|---|---|---|---|---|---|---|"]
+                  "max (ms) | API pod CPU | PostgreSQL CPU | started | finished |",
+                  "|---|---|---|---|---|---|---|---|---|---|---|"]
         lines += calib
         lines.append("")
     if "hpa" in summary:
