@@ -146,9 +146,17 @@ took to return to its desired state. Results are reported as the median and rang
 | Scenario | Fault |
 |---|---|
 | Rolling deploy | `helm upgrade` with a changed pod annotation, so every API pod is replaced |
-| Pod kill | one API pod deleted with a zero grace period (the worst case, as if the process were killed) |
+| Pod deleted, zero grace period | one API pod deleted with `--grace-period=0 --force`. The first version of this document called this "as if the process were killed"; a probe showed it is not (see below) |
+| Container SIGKILL | the API container of one pod stopped with `crictl stop --timeout 0` on its node: no SIGTERM, no `preStop` hook, exit code 137 |
 | Node drain | `kubectl drain` of the worker holding the most API pods, with the PodDisruptionBudget in force |
 | Bad release | `helm upgrade` to `dispatch-api:bad`, detection by a rollout deadline, then `helm rollback` |
+| Rolling deploy without the `preStop` sleep | ablation of the first row: the same `helm upgrade` with the sleep set to 0, to measure what the sleep buys |
+
+**Correction found while measuring.** `kubectl delete pod --grace-period=0 --force` removes the Pod object
+at once, but the kubelet still stops the container with a short grace period, and the probe in
+`results/kill/force-delete-probe.txt` shows the container exiting with code 0 (a clean exit after
+SIGTERM). So that scenario measures an abrupt removal of the Pod object, not a process crash. The crash is
+the container SIGKILL scenario.
 
 Time to recover has two definitions and they are reported separately: the error window seen by the client
 (first to last failed request), and the time until the cluster has all desired pods Ready again as polled
