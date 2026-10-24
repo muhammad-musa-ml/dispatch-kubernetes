@@ -1,0 +1,8 @@
+apiVersion: v2
+name: dispatch
+description: Dispatch webhook-delivery API with its migration Job, autoscaling and disruption budget
+type: application
+version: 0.1.0
+# The pinned commit of vendor/dispatch-api that the default image is built from.
+appVersion: "48d2678"
+kubeVersion: ">=1.30.0-0"

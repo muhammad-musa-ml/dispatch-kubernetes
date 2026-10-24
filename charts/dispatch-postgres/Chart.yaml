@@ -1,0 +1,7 @@
+apiVersion: v2
+name: dispatch-postgres
+description: Single-instance PostgreSQL for Dispatch (local and CI clusters; not highly available)
+type: application
+version: 0.1.0
+appVersion: "17"
+kubeVersion: ">=1.30.0-0"

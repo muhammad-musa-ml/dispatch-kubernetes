@@ -1,0 +1,30 @@
+image:
+  repository: postgres
+  tag: 17-alpine
+  pullPolicy: IfNotPresent
+
+database: dispatch
+user: dispatch
+
+# Secret created outside the chart; key: POSTGRES_PASSWORD.
+passwordSecret: dispatch-postgres
+
+# max_connections. Every Dispatch replica opens a bounded pool (pool_max_conns in DATABASE_URL), so the
+# limit has to cover the autoscaler's maximum replicas times the pool size, plus the migration Job.
+maxConnections: 200
+
+persistence:
+  size: 2Gi
+  storageClass: ""   # empty: the cluster default
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: "2"
+    memory: 1Gi
+
+# Pin the database to one node. A node-local volume cannot follow the pod, and the experiments drain a
+# different node.
+nodeSelector: {}

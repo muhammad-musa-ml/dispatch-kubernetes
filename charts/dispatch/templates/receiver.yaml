@@ -1,0 +1,73 @@
+{{- if .Values.receiver.enabled }}
+# The demo receiver that ships in the Dispatch image: verifies signatures and fails the first two attempts
+# of every event with a 503, so each event costs three delivery attempts.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dispatch.fullname" . }}-receiver
+  labels:
+    {{- include "dispatch.labels" . | nindent 4 }}
+    app.kubernetes.io/component: receiver
+spec:
+  replicas: {{ .Values.receiver.replicas }}
+  selector:
+    matchLabels:
+      {{- include "dispatch.receiverSelectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "dispatch.receiverSelectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "dispatch.fullname" . }}
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: receiver
+          image: {{ printf "%s:%s" (default .Values.image.repository .Values.receiver.image.repository) (default (default .Chart.AppVersion .Values.image.tag) .Values.receiver.image.tag) | quote }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/receiver"]
+          ports:
+            - name: http
+              containerPort: {{ .Values.receiver.port }}
+          env:
+            - name: WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "secrets.receiver is required" .Values.secrets.receiver }}
+                  key: WEBHOOK_SECRET
+          readinessProbe:
+            tcpSocket:
+              port: http
+            periodSeconds: 2
+          livenessProbe:
+            tcpSocket:
+              port: http
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.receiver.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "dispatch.fullname" . }}-receiver
+  labels:
+    {{- include "dispatch.labels" . | nindent 4 }}
+    app.kubernetes.io/component: receiver
+spec:
+  selector:
+    {{- include "dispatch.receiverSelectorLabels" . | nindent 4 }}
+  ports:
+    - name: http
+      port: {{ .Values.receiver.port }}
+      targetPort: http
+{{- end }}

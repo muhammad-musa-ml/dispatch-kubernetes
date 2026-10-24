@@ -1,0 +1,106 @@
+# Default values for the dispatch chart. Nothing here is a credential: every secret is a Secret that
+# already exists in the namespace and is referenced by name (see "secrets").
+
+image:
+  repository: dispatch-api
+  tag: ""            # defaults to .Chart.AppVersion
+  pullPolicy: IfNotPresent
+
+migrateImage:
+  repository: dispatch-migrate
+  tag: ""            # defaults to .Chart.AppVersion
+  pullPolicy: IfNotPresent
+
+# Secrets created outside the chart (Terraform in this repository, `kubectl create secret` in CI).
+# A pre-install hook cannot use a Secret that the same release creates, so the chart never creates one.
+secrets:
+  # keys: DATABASE_URL, MIGRATION_DATABASE_URL, API_KEYS, DELIVERY_TARGETS
+  app: dispatch-app
+  # key: WEBHOOK_SECRET (the demo receiver's signing secret)
+  receiver: dispatch-receiver
+
+# Dispatch refuses plain-HTTP delivery targets unless this is set. The demo receiver is plain HTTP.
+allowHttpTargets: true
+
+# Extra pod annotations; changing one rolls every pod (the experiments use this to force a rollout).
+podAnnotations: {}
+
+service:
+  type: ClusterIP
+  port: 8080
+  nodePort: null     # set with type NodePort
+
+# Termination budget, in seconds, summed to terminationGracePeriodSeconds:
+#   preStopSleep   endpoint removal reaches kube-proxy before the process stops accepting connections
+#   httpDrain      the service's own HTTP shutdown deadline (srv.Shutdown, 10 s in cmd/api/main.go)
+#   workerAttempt  an in-flight webhook attempt (worker HTTP client timeout, 5 s)
+#   margin         slack
+termination:
+  preStopSleep: 5
+  httpDrain: 10
+  workerAttempt: 5
+  margin: 10
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 500m
+    memory: 192Mi
+
+probes:
+  startup:
+    periodSeconds: 1
+    failureThreshold: 30
+  liveness:
+    periodSeconds: 10
+    timeoutSeconds: 2
+    failureThreshold: 3
+  readiness:
+    periodSeconds: 2
+    timeoutSeconds: 2
+    failureThreshold: 2
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 60
+  # How long the HPA waits before removing replicas. Kubernetes' default is 300 s; shortened so that
+  # repeated scale-out experiments finish in reasonable time.
+  scaleDownStabilizationSeconds: 60
+
+# Used only when autoscaling is disabled.
+replicaCount: 3
+
+podDisruptionBudget:
+  maxUnavailable: 1
+
+# Spread replicas across nodes. ScheduleAnyway so a drained cluster still schedules.
+topologySpread:
+  enabled: true
+  maxSkew: 1
+
+nodeSelector: {}
+tolerations: []
+
+migration:
+  enabled: true
+  activeDeadlineSeconds: 180
+  backoffLimit: 2
+
+receiver:
+  enabled: true
+  image:
+    repository: ""   # defaults to the api image: the receiver binary ships in the same image
+    tag: ""
+  replicas: 2
+  port: 8081
+  resources:
+    requests:
+      cpu: 50m
+      memory: 32Mi
+    limits:
+      cpu: 250m
+      memory: 96Mi
