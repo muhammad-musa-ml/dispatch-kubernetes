@@ -49,7 +49,7 @@ kubectl -n "$NS" get pods -o wide
 # so it is started again after every rollout.
 pf=""
 start_pf() {
-  [ -n "$pf" ] && kill "$pf" 2>/dev/null || true
+  if [ -n "$pf" ]; then kill "$pf" 2>/dev/null || true; fi
   kubectl -n "$NS" port-forward svc/dispatch "${PORT}:8080" >/tmp/port-forward.log 2>&1 &
   pf=$!
   for _ in $(seq 1 30); do

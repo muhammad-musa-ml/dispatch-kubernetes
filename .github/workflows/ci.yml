@@ -31,7 +31,7 @@ jobs:
       - name: Shell and Python checks
         run: |
           shellcheck scripts/*.sh docker/migrate/migrate.sh bench/*.sh
-          python3 -m py_compile bench/harness.py bench/summarize.py
+          python3 -m py_compile bench/*.py
 
   build:
     runs-on: ubuntu-latest
