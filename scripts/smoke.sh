@@ -94,12 +94,19 @@ fi
 "${helm_dispatch[@]}" rollback dispatch --wait --timeout 5m
 "${helm_dispatch[@]}" history dispatch
 "${helm_dispatch[@]}" history dispatch -o json | grep -q '"description":"Rollback to' || { echo "no rollback in history"; exit 1; }
+# `helm rollback --wait` returns once the restored ReplicaSet is available, not once the pods of the failed
+# one are gone: they are listed, with a deletionTimestamp, for a few seconds. Wait for them (at most 60 s)
+# before asserting that none is left; a pod that never goes away still fails the check.
+images=""
+for _ in $(seq 1 60); do
+  images=$(kubectl -n "$NS" get pods -l app.kubernetes.io/component=api -o jsonpath='{.items[*].spec.containers[0].image}')
+  case "$images" in *:bad*) sleep 1 ;; *) break ;; esac
+done
 kubectl -n "$NS" get pods -l app.kubernetes.io/component=api \
-  -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.spec.containers[0].image}{" "}{.status.phase}{"\n"}{end}'
-if kubectl -n "$NS" get pods -l app.kubernetes.io/component=api -o jsonpath='{.items[*].spec.containers[0].image}' | grep -q ':bad'; then
-  echo "a pod still runs the bad image"
-  exit 1
-fi
+  -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.spec.containers[0].image}{" "}{.status.phase}{" deletionTimestamp="}{.metadata.deletionTimestamp}{"\n"}{end}'
+case "$images" in
+  *:bad*) echo "a pod still runs the bad image"; exit 1 ;;
+esac
 start_pf
 code=$(post_event "smoke-after-$(rand 4)")
 [ "$code" = "201" ] || { echo "POST after rollback returned $code"; exit 1; }
