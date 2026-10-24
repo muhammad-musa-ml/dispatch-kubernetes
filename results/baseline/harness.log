@@ -1,0 +1,23 @@
+2026-10-24T07:47:06Z batch baseline: run baseline --runs 5 --rate 40 --duration 170 --fault-at 30 --window 60
+2026-10-24T07:47:06Z measurement lock acquired after waiting 0s
+2026-10-24T07:47:07Z --- baseline run 1: settling
+2026-10-24T07:47:10Z load started (k6 clock 1792828029.729); fault at +30s
+2026-10-24T07:50:00Z k6 exited 0
+2026-10-24T07:50:01Z run 1: requests=6799 failed=0 dropped=0 p95(fault window)=12.17805 error_span=0.0s recovery=None
+2026-10-24T07:50:01Z --- baseline run 2: settling
+2026-10-24T07:50:07Z load started (k6 clock 1792828207.592); fault at +30s
+2026-10-24T07:53:00Z k6 exited 0
+2026-10-24T07:53:02Z run 2: requests=6799 failed=0 dropped=0 p95(fault window)=10.853112 error_span=0.0s recovery=None
+2026-10-24T07:53:02Z --- baseline run 3: settling
+2026-10-24T07:53:05Z load started (k6 clock 1792828385.489); fault at +30s
+2026-10-24T07:55:56Z k6 exited 0
+2026-10-24T07:55:59Z run 3: requests=6799 failed=0 dropped=0 p95(fault window)=17.718791 error_span=0.0s recovery=None
+2026-10-24T07:55:59Z --- baseline run 4: settling
+2026-10-24T07:56:05Z load started (k6 clock 1792828565.401); fault at +30s
+2026-10-24T07:58:56Z k6 exited 0
+2026-10-24T07:58:58Z run 4: requests=6799 failed=0 dropped=0 p95(fault window)=30.019661 error_span=0.0s recovery=None
+2026-10-24T07:58:58Z --- baseline run 5: settling
+2026-10-24T07:59:05Z load started (k6 clock 1792828745.523); fault at +30s
+2026-10-24T08:01:57Z k6 exited 0
+2026-10-24T08:02:01Z run 5: requests=6799 failed=0 dropped=0 p95(fault window)=43.65766 error_span=0.0s recovery=None
+2026-10-24T08:02:02Z measurement lock released

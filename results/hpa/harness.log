@@ -1,0 +1,30 @@
+2026-10-24T08:55:56Z batch hpa: run hpa --runs 5 --hpa-base-rate 10 --hpa-rate 60 --hpa-lead 30 --hpa-hold 240
+2026-10-24T08:55:56Z measurement lock held by [P4 2026-10-24T08:55:56Z]; waiting
+2026-10-24T08:56:56Z measurement lock held by [P4 2026-10-24T08:55:56Z]; waiting
+2026-10-24T08:57:56Z measurement lock held by [P4 2026-10-24T08:55:56Z]; waiting
+2026-10-24T08:58:56Z measurement lock held by [P4 2026-10-24T08:55:56Z]; waiting
+2026-10-24T08:59:56Z measurement lock held by [P4 2026-10-24T08:55:56Z]; waiting
+2026-10-24T09:00:56Z measurement lock held by [P4 2026-10-24T08:55:56Z]; waiting
+2026-10-24T09:01:56Z measurement lock held by [P4 2026-10-24T08:55:56Z]; waiting
+2026-10-24T09:02:56Z measurement lock held by [P4 2026-10-24T08:55:56Z]; waiting
+2026-10-24T09:03:56Z measurement lock held by [P4 2026-10-24T08:55:56Z]; waiting
+2026-10-24T09:04:56Z measurement lock held by [P3 2026-10-24T09:04:53Z]; waiting
+2026-10-24T09:05:56Z measurement lock held by [P3 2026-10-24T09:04:53Z]; waiting
+2026-10-24T09:06:56Z measurement lock acquired after waiting 660s
+2026-10-24T09:06:57Z switching the release to autoscaling.enabled=true
+2026-10-24T09:07:06Z --- hpa run 1: settling
+2026-10-24T09:07:24Z load started; step to 60/s at +30s
+2026-10-24T09:11:56Z hpa run 1: decision +40.7s, first new pod Ready +43.7s, all desired Ready +162.3s, desired max 5, failed 0
+2026-10-24T09:11:56Z --- hpa run 2: settling
+2026-10-24T09:13:23Z load started; step to 60/s at +30s
+2026-10-24T09:17:56Z hpa run 2: decision +57.5s, first new pod Ready +59.2s, all desired Ready +59.2s, desired max 4, failed 0
+2026-10-24T09:17:56Z --- hpa run 3: settling
+2026-10-24T09:19:37Z load started; step to 60/s at +30s
+2026-10-24T09:24:11Z hpa run 3: decision +57.1s, first new pod Ready +58.9s, all desired Ready +58.9s, desired max 4, failed 0
+2026-10-24T09:24:11Z --- hpa run 4: settling
+2026-10-24T09:25:52Z load started; step to 60/s at +30s
+2026-10-24T09:30:25Z hpa run 4: decision +58.2s, first new pod Ready +61.0s, all desired Ready +61.0s, desired max 4, failed 0
+2026-10-24T09:30:25Z --- hpa run 5: settling
+2026-10-24T09:32:07Z load started; step to 60/s at +30s
+2026-10-24T09:36:40Z hpa run 5: decision +43.6s, first new pod Ready +43.6s, all desired Ready +43.6s, desired max 4, failed 0
+2026-10-24T09:36:40Z measurement lock released

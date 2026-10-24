@@ -1,0 +1,35 @@
+2026-10-24T08:34:56Z batch badrelease: run badrelease --runs 5 --rate 40 --duration 170 --fault-at 30 --window 100 --rollout-deadline 45
+2026-10-24T08:34:56Z measurement lock held by [P4 2026-10-24T08:34:56Z]; waiting
+2026-10-24T08:35:56Z measurement lock held by [P4 2026-10-24T08:34:56Z]; waiting
+2026-10-24T08:36:56Z measurement lock held by [P4 2026-10-24T08:34:56Z]; waiting
+2026-10-24T08:37:56Z measurement lock held by [P4 2026-10-24T08:34:56Z]; waiting
+2026-10-24T08:38:56Z measurement lock held by [P4 2026-10-24T08:34:56Z]; waiting
+2026-10-24T08:39:56Z measurement lock held by [P4 2026-10-24T08:34:56Z]; waiting
+2026-10-24T08:40:56Z measurement lock held by [P4 2026-10-24T08:34:56Z]; waiting
+2026-10-24T08:41:06Z measurement lock acquired after waiting 370s
+2026-10-24T08:41:07Z --- badrelease run 1: settling
+2026-10-24T08:41:09Z load started (k6 clock 1792831269.209); fault at +30s
+2026-10-24T08:42:33Z fault done; cluster recovery 1.6s
+2026-10-24T08:44:00Z k6 exited 0
+2026-10-24T08:44:01Z run 1: requests=6799 failed=0 dropped=0 p95(fault window)=6.870142 error_span=0.0s recovery=1.58
+2026-10-24T08:44:01Z --- badrelease run 2: settling
+2026-10-24T08:44:07Z load started (k6 clock 1792831447.175); fault at +30s
+2026-10-24T08:45:31Z fault done; cluster recovery 1.5s
+2026-10-24T08:46:57Z k6 exited 0
+2026-10-24T08:46:58Z run 2: requests=6799 failed=0 dropped=0 p95(fault window)=9.899709 error_span=0.0s recovery=1.51
+2026-10-24T08:46:58Z --- badrelease run 3: settling
+2026-10-24T08:47:07Z load started (k6 clock 1792831627.537); fault at +30s
+2026-10-24T08:48:31Z fault done; cluster recovery 1.7s
+2026-10-24T08:49:59Z k6 exited 0
+2026-10-24T08:50:00Z run 3: requests=6799 failed=0 dropped=0 p95(fault window)=66.498845 error_span=0.0s recovery=1.7
+2026-10-24T08:50:00Z --- badrelease run 4: settling
+2026-10-24T08:50:06Z load started (k6 clock 1792831806.497); fault at +30s
+2026-10-24T08:51:31Z fault done; cluster recovery 2.5s
+2026-10-24T08:52:57Z k6 exited 0
+2026-10-24T08:52:58Z run 4: requests=6799 failed=0 dropped=0 p95(fault window)=10.154964 error_span=0.0s recovery=2.48
+2026-10-24T08:52:58Z --- badrelease run 5: settling
+2026-10-24T08:53:04Z load started (k6 clock 1792831984.479); fault at +30s
+2026-10-24T08:54:28Z fault done; cluster recovery 1.5s
+2026-10-24T08:55:55Z k6 exited 0
+2026-10-24T08:55:55Z run 5: requests=6799 failed=0 dropped=0 p95(fault window)=8.728596 error_span=0.0s recovery=1.51
+2026-10-24T08:55:56Z measurement lock released

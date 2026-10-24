@@ -1,0 +1,28 @@
+2026-10-24T08:23:30Z batch drain: run drain --runs 5 --rate 40 --duration 120 --fault-at 30 --window 60
+2026-10-24T08:23:30Z measurement lock acquired after waiting 0s
+2026-10-24T08:23:31Z --- drain run 1: settling
+2026-10-24T08:23:46Z load started (k6 clock 1792830226.261); fault at +30s
+2026-10-24T08:24:30Z fault done; cluster recovery 13.0s
+2026-10-24T08:25:46Z k6 exited 0
+2026-10-24T08:25:47Z run 1: requests=4799 failed=0 dropped=0 p95(fault window)=8.806934 error_span=0.0s recovery=13.0
+2026-10-24T08:25:47Z --- drain run 2: settling
+2026-10-24T08:26:02Z load started (k6 clock 1792830362.112); fault at +30s
+2026-10-24T08:26:44Z fault done; cluster recovery 12.0s
+2026-10-24T08:28:02Z k6 exited 0
+2026-10-24T08:28:03Z run 2: requests=4799 failed=0 dropped=0 p95(fault window)=9.352513 error_span=0.0s recovery=11.98
+2026-10-24T08:28:03Z --- drain run 3: settling
+2026-10-24T08:28:18Z load started (k6 clock 1792830498.196); fault at +30s
+2026-10-24T08:29:00Z fault done; cluster recovery 12.1s
+2026-10-24T08:30:19Z k6 exited 0
+2026-10-24T08:30:20Z run 3: requests=4799 failed=0 dropped=0 p95(fault window)=9.255636 error_span=0.0s recovery=12.06
+2026-10-24T08:30:20Z --- drain run 4: settling
+2026-10-24T08:30:35Z load started (k6 clock 1792830635.171); fault at +30s
+2026-10-24T08:31:17Z fault done; cluster recovery 12.0s
+2026-10-24T08:32:38Z k6 exited 0
+2026-10-24T08:32:38Z run 4: requests=4799 failed=0 dropped=0 p95(fault window)=8.21115 error_span=0.0s recovery=11.97
+2026-10-24T08:32:39Z --- drain run 5: settling
+2026-10-24T08:32:54Z load started (k6 clock 1792830774.625); fault at +30s
+2026-10-24T08:33:38Z fault done; cluster recovery 13.1s
+2026-10-24T08:34:55Z k6 exited 0
+2026-10-24T08:34:55Z run 5: requests=4799 failed=0 dropped=0 p95(fault window)=16.015509 error_span=0.0s recovery=13.12
+2026-10-24T08:34:56Z measurement lock released

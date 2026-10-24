@@ -1,0 +1,319 @@
+{
+  "scenario": "badrelease",
+  "run": 1,
+  "run_id": "badrelease-1-1792831267",
+  "params": {
+    "rate_per_s": 40,
+    "duration_s": 170,
+    "fault_at_s": 30,
+    "window_s": 100,
+    "request_timeout_s": 5,
+    "k6_image": "grafana/k6:2.2.0"
+  },
+  "load_start_vm_epoch": 1792831269.208645,
+  "fault_offset_s": 30.598,
+  "settled_before": {
+    "ready": 3,
+    "pods": 3,
+    "hpa_current": null,
+    "hpa_desired": null,
+    "backlog": 0,
+    "settle_seconds": 0.6
+  },
+  "pods_before": [
+    {
+      "name": "dispatch-f447b5558-4rrqs",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-ckw7h",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-l5pps",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ],
+  "k6_exit": 0,
+  "requests": 6799,
+  "failed": 0,
+  "dropped_iterations": 0,
+  "status_counts": {
+    "201": 6799
+  },
+  "overall": {
+    "from_s": 0,
+    "to_s": 1000000000.0,
+    "requests": 6799,
+    "failed": 0,
+    "p50_ms": 4.041911,
+    "p95_ms": 7.720749,
+    "p99_ms": 40.692774,
+    "max_ms": 352.2442
+  },
+  "pre_fault": {
+    "from_s": 5,
+    "to_s": 30,
+    "requests": 1002,
+    "failed": 0,
+    "p50_ms": 3.996327,
+    "p95_ms": 7.70999,
+    "p99_ms": 10.783012,
+    "max_ms": 50.490103
+  },
+  "fault_window": {
+    "from_s": 30,
+    "to_s": 130,
+    "requests": 4006,
+    "failed": 0,
+    "p50_ms": 3.966291,
+    "p95_ms": 6.870142,
+    "p99_ms": 13.509678,
+    "max_ms": 181.636985
+  },
+  "post_window": {
+    "from_s": 130,
+    "to_s": 1000000000.0,
+    "requests": 1590,
+    "failed": 0,
+    "p50_ms": 4.260988,
+    "p95_ms": 16.429407,
+    "p99_ms": 121.426773,
+    "max_ms": 352.2442
+  },
+  "error_window": {
+    "failed": 0,
+    "first_s": null,
+    "last_s": null,
+    "span_s": 0.0
+  },
+  "cluster_recovery_s": 1.58,
+  "detail": {
+    "rollout_deadline_s": 45,
+    "upgrade_failed": true,
+    "upgrade_to_detection_seconds": 51.57,
+    "rollback_seconds": 0.74,
+    "bad_release_to_restored_seconds": 53.36,
+    "rollback_to_ready_seconds": 1.58,
+    "pods_when_deadline_hit": [
+      {
+        "image": "dispatch-api:bad",
+        "ready": false
+      },
+      {
+        "image": "dispatch-api:48d2678",
+        "ready": true
+      },
+      {
+        "image": "dispatch-api:48d2678",
+        "ready": true
+      },
+      {
+        "image": "dispatch-api:48d2678",
+        "ready": true
+      }
+    ],
+    "rollback_stdout": "Rollback was a success! Happy Helming!"
+  },
+  "top_samples": [
+    {
+      "offset_s": -0.6,
+      "api_cpu_m": [
+        15,
+        12,
+        20
+      ],
+      "postgres_cpu_m": 51,
+      "receiver_cpu_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "offset_s": 14.9,
+      "api_cpu_m": [
+        16,
+        13,
+        20
+      ],
+      "postgres_cpu_m": 51,
+      "receiver_cpu_m": [
+        1,
+        1
+      ]
+    },
+    {
+      "offset_s": 30.4,
+      "api_cpu_m": [
+        68,
+        131,
+        129
+      ],
+      "postgres_cpu_m": 466,
+      "receiver_cpu_m": [
+        27,
+        25
+      ]
+    },
+    {
+      "offset_s": 46.0,
+      "api_cpu_m": [
+        121,
+        136,
+        126
+      ],
+      "postgres_cpu_m": 477,
+      "receiver_cpu_m": [
+        36,
+        25
+      ]
+    },
+    {
+      "offset_s": 61.6,
+      "api_cpu_m": [
+        127,
+        136,
+        111
+      ],
+      "postgres_cpu_m": 484,
+      "receiver_cpu_m": [
+        36,
+        18
+      ]
+    },
+    {
+      "offset_s": 77.1,
+      "api_cpu_m": [
+        114,
+        117,
+        111
+      ],
+      "postgres_cpu_m": 443,
+      "receiver_cpu_m": [
+        30,
+        19
+      ]
+    },
+    {
+      "offset_s": 92.7,
+      "api_cpu_m": [
+        121,
+        130,
+        125
+      ],
+      "postgres_cpu_m": 545,
+      "receiver_cpu_m": [
+        36,
+        19
+      ]
+    },
+    {
+      "offset_s": 108.2,
+      "api_cpu_m": [
+        119,
+        108,
+        108
+      ],
+      "postgres_cpu_m": 448,
+      "receiver_cpu_m": [
+        31,
+        18
+      ]
+    },
+    {
+      "offset_s": 123.7,
+      "api_cpu_m": [
+        112,
+        121,
+        118
+      ],
+      "postgres_cpu_m": 469,
+      "receiver_cpu_m": [
+        34,
+        19
+      ]
+    },
+    {
+      "offset_s": 139.3,
+      "api_cpu_m": [
+        107,
+        131,
+        118
+      ],
+      "postgres_cpu_m": 617,
+      "receiver_cpu_m": [
+        30,
+        27
+      ]
+    },
+    {
+      "offset_s": 155.3,
+      "api_cpu_m": [
+        142,
+        155,
+        119
+      ],
+      "postgres_cpu_m": 578,
+      "receiver_cpu_m": [
+        37,
+        27
+      ]
+    },
+    {
+      "offset_s": 170.8,
+      "api_cpu_m": [
+        113,
+        121,
+        124
+      ],
+      "postgres_cpu_m": 411,
+      "receiver_cpu_m": [
+        32,
+        18
+      ]
+    }
+  ],
+  "hpa_after": {
+    "current": null,
+    "desired": null,
+    "cpu_pct": null
+  },
+  "pods_after": [
+    {
+      "name": "dispatch-f447b5558-4rrqs",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-ckw7h",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-l5pps",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ]
+}

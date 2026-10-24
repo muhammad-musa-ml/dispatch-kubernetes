@@ -1,0 +1,1278 @@
+{
+  "scenario": "hpa",
+  "run": 4,
+  "run_id": "hpa-4-1792833851",
+  "params": {
+    "rate_before_per_s": 10,
+    "rate_after_per_s": 60,
+    "lead_s": 30,
+    "hold_s": 240,
+    "k6_image": "grafana/k6:2.2.0",
+    "cpu_target_pct": 60,
+    "metrics_resolution_s": 15
+  },
+  "settled_before": {
+    "ready": 3,
+    "pods": 3,
+    "hpa_current": 3,
+    "hpa_desired": 3,
+    "backlog": 0,
+    "settle_seconds": 99.5
+  },
+  "k6_exit": 0,
+  "requests": 14734,
+  "failed": 0,
+  "dropped_iterations": 0,
+  "before_step": {
+    "from_s": 5,
+    "to_s": 30,
+    "requests": 251,
+    "failed": 0,
+    "p50_ms": 3.96957,
+    "p95_ms": 7.781703,
+    "p99_ms": 9.235479,
+    "max_ms": 12.78444
+  },
+  "after_step": {
+    "from_s": 30,
+    "to_s": 1000000000.0,
+    "requests": 14432,
+    "failed": 0,
+    "p50_ms": 3.883474,
+    "p95_ms": 7.12814,
+    "p99_ms": 15.919449,
+    "max_ms": 206.065971
+  },
+  "cpu_pct_before_step_max": 7,
+  "seconds_to_first_scale_decision": 58.2,
+  "seconds_to_first_new_pod_ready": 61.0,
+  "desired_replicas_max": 4,
+  "ready_replicas_max": 4,
+  "seconds_to_all_desired_ready": 61.0,
+  "samples": [
+    {
+      "t": 0.57,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 2.3,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 4.01,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 5.74,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 7.48,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 9.2,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 10.89,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 12.58,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 14.29,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 16.02,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 17.77,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 19.68,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 21.41,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 23.16,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 24.86,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 26.6,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 5,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 28.39,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 7,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 30.08,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 7,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 31.78,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 7,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 33.63,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 7,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 35.47,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 7,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 37.35,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 7,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 39.09,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 7,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 40.88,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 7,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 42.64,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 7,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 44.44,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 18,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 46.17,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 18,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 47.92,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 18,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 49.66,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 18,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 51.41,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 18,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 53.15,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 18,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 54.89,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 18,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 56.53,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 18,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 58.29,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 44,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 60.0,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 44,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 61.68,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 44,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 63.48,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 44,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 65.21,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 44,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 67.0,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 44,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 68.75,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 44,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 70.53,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 44,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 72.28,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 44,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 74.04,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 59,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 75.83,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 59,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 77.58,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 59,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 79.43,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 59,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 81.2,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 59,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 82.91,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 59,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 84.75,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 59,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 86.45,
+      "hpa_current": 3,
+      "hpa_desired": 3,
+      "cpu_pct": 59,
+      "pods": 3,
+      "ready": 3
+    },
+    {
+      "t": 88.17,
+      "hpa_current": 3,
+      "hpa_desired": 4,
+      "cpu_pct": 69,
+      "pods": 4,
+      "ready": 3
+    },
+    {
+      "t": 91.0,
+      "hpa_current": 3,
+      "hpa_desired": 4,
+      "cpu_pct": 69,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 92.72,
+      "hpa_current": 3,
+      "hpa_desired": 4,
+      "cpu_pct": 69,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 94.63,
+      "hpa_current": 3,
+      "hpa_desired": 4,
+      "cpu_pct": 69,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 96.41,
+      "hpa_current": 3,
+      "hpa_desired": 4,
+      "cpu_pct": 69,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 98.17,
+      "hpa_current": 3,
+      "hpa_desired": 4,
+      "cpu_pct": 69,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 99.94,
+      "hpa_current": 3,
+      "hpa_desired": 4,
+      "cpu_pct": 69,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 101.65,
+      "hpa_current": 3,
+      "hpa_desired": 4,
+      "cpu_pct": 69,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 103.45,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 71,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 105.24,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 71,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 107.01,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 71,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 108.71,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 71,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 110.46,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 71,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 112.23,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 71,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 114.05,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 71,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 115.8,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 71,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 117.59,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 71,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 119.34,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 65,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 121.15,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 65,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 122.94,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 65,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 124.71,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 65,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 126.46,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 65,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 128.27,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 65,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 130.09,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 65,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 131.92,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 65,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 133.82,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 135.62,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 137.43,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 139.23,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 140.97,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 142.72,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 144.58,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 146.24,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 147.95,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 149.7,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 56,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 151.44,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 56,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 153.15,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 56,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 154.94,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 56,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 156.7,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 56,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 158.44,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 56,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 160.23,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 56,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 162.09,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 56,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 163.92,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 165.7,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 167.45,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 169.19,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 170.95,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 172.73,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 174.47,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 176.31,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 178.03,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 179.76,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 181.6,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 183.38,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 185.2,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 186.97,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 188.76,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 190.57,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 192.36,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 194.17,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 195.97,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 197.73,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 199.52,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 201.3,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 203.08,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 204.9,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 206.7,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 208.53,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 210.27,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 212.03,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 213.83,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 215.58,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 217.42,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 219.2,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 220.99,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 222.8,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 53,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 224.56,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 226.34,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 228.11,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 229.84,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 231.62,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 233.63,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 235.4,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 237.13,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 55,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 238.86,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 54,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 240.63,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 54,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 242.38,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 54,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 244.19,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 54,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 245.96,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 54,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 247.73,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 54,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 249.52,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 54,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 251.39,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 54,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 253.17,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 255.05,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 256.8,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 258.57,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 260.26,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 262.06,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 263.87,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 265.57,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 267.34,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 58,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 269.09,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 56,
+      "pods": 4,
+      "ready": 4
+    },
+    {
+      "t": 270.86,
+      "hpa_current": 4,
+      "hpa_desired": 4,
+      "cpu_pct": 56,
+      "pods": 4,
+      "ready": 4
+    }
+  ]
+}

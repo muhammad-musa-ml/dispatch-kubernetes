@@ -1,0 +1,293 @@
+{
+  "scenario": "baseline",
+  "run": 4,
+  "run_id": "baseline-4-1792828559",
+  "params": {
+    "rate_per_s": 40,
+    "duration_s": 170,
+    "fault_at_s": 30,
+    "window_s": 60,
+    "request_timeout_s": 5,
+    "k6_image": "grafana/k6:2.2.0"
+  },
+  "load_start_vm_epoch": 1792828565.4013822,
+  "fault_offset_s": 30.295,
+  "settled_before": {
+    "ready": 3,
+    "pods": 3,
+    "hpa_current": null,
+    "hpa_desired": null,
+    "backlog": 0,
+    "settle_seconds": 4.9
+  },
+  "pods_before": [
+    {
+      "name": "dispatch-7789756b6c-6t5cm",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-7789756b6c-kz7b2",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-7789756b6c-q6z9j",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ],
+  "k6_exit": 0,
+  "requests": 6799,
+  "failed": 0,
+  "dropped_iterations": 0,
+  "status_counts": {
+    "201": 6799
+  },
+  "overall": {
+    "from_s": 0,
+    "to_s": 1000000000.0,
+    "requests": 6799,
+    "failed": 0,
+    "p50_ms": 5.82554,
+    "p95_ms": 11.412515,
+    "p99_ms": 89.766256,
+    "max_ms": 392.657509
+  },
+  "pre_fault": {
+    "from_s": 5,
+    "to_s": 30,
+    "requests": 1002,
+    "failed": 0,
+    "p50_ms": 5.819785,
+    "p95_ms": 9.299551,
+    "p99_ms": 20.799005,
+    "max_ms": 103.321898
+  },
+  "fault_window": {
+    "from_s": 30,
+    "to_s": 90,
+    "requests": 2404,
+    "failed": 0,
+    "p50_ms": 5.878714,
+    "p95_ms": 30.019661,
+    "p99_ms": 169.657552,
+    "max_ms": 392.657509
+  },
+  "post_window": {
+    "from_s": 90,
+    "to_s": 1000000000.0,
+    "requests": 3192,
+    "failed": 0,
+    "p50_ms": 5.777298,
+    "p95_ms": 9.155165,
+    "p99_ms": 14.612719,
+    "max_ms": 131.052433
+  },
+  "error_window": {
+    "failed": 0,
+    "first_s": null,
+    "last_s": null,
+    "span_s": 0.0
+  },
+  "cluster_recovery_s": null,
+  "detail": {},
+  "top_samples": [
+    {
+      "offset_s": -0.5,
+      "api_cpu_m": [
+        119,
+        123,
+        122
+      ],
+      "postgres_cpu_m": 422,
+      "receiver_cpu_m": [
+        26,
+        27
+      ]
+    },
+    {
+      "offset_s": 15.0,
+      "api_cpu_m": [
+        67,
+        123,
+        71
+      ],
+      "postgres_cpu_m": 242,
+      "receiver_cpu_m": [
+        20,
+        17
+      ]
+    },
+    {
+      "offset_s": 30.4,
+      "api_cpu_m": [
+        126,
+        76,
+        71
+      ],
+      "postgres_cpu_m": 389,
+      "receiver_cpu_m": [
+        22,
+        23
+      ]
+    },
+    {
+      "offset_s": 46.3,
+      "api_cpu_m": [
+        131,
+        139,
+        110
+      ],
+      "postgres_cpu_m": 446,
+      "receiver_cpu_m": [
+        33,
+        22
+      ]
+    },
+    {
+      "offset_s": 62.0,
+      "api_cpu_m": [
+        116,
+        117,
+        123
+      ],
+      "postgres_cpu_m": 440,
+      "receiver_cpu_m": [
+        27,
+        19
+      ]
+    },
+    {
+      "offset_s": 77.5,
+      "api_cpu_m": [
+        137,
+        118,
+        113
+      ],
+      "postgres_cpu_m": 474,
+      "receiver_cpu_m": [
+        35,
+        20
+      ]
+    },
+    {
+      "offset_s": 92.9,
+      "api_cpu_m": [
+        124,
+        113,
+        119
+      ],
+      "postgres_cpu_m": 451,
+      "receiver_cpu_m": [
+        28,
+        26
+      ]
+    },
+    {
+      "offset_s": 108.5,
+      "api_cpu_m": [
+        159,
+        160,
+        125
+      ],
+      "postgres_cpu_m": 576,
+      "receiver_cpu_m": [
+        38,
+        19
+      ]
+    },
+    {
+      "offset_s": 124.0,
+      "api_cpu_m": [
+        125,
+        128,
+        119
+      ],
+      "postgres_cpu_m": 451,
+      "receiver_cpu_m": [
+        35,
+        19
+      ]
+    },
+    {
+      "offset_s": 139.5,
+      "api_cpu_m": [
+        128,
+        106,
+        127
+      ],
+      "postgres_cpu_m": 436,
+      "receiver_cpu_m": [
+        35,
+        18
+      ]
+    },
+    {
+      "offset_s": 154.9,
+      "api_cpu_m": [
+        128,
+        119,
+        113
+      ],
+      "postgres_cpu_m": 432,
+      "receiver_cpu_m": [
+        34,
+        18
+      ]
+    },
+    {
+      "offset_s": 170.4,
+      "api_cpu_m": [
+        123,
+        146,
+        108
+      ],
+      "postgres_cpu_m": 429,
+      "receiver_cpu_m": [
+        31,
+        20
+      ]
+    }
+  ],
+  "hpa_after": {
+    "current": null,
+    "desired": null,
+    "cpu_pct": null
+  },
+  "pods_after": [
+    {
+      "name": "dispatch-7789756b6c-6t5cm",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-7789756b6c-kz7b2",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-7789756b6c-q6z9j",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ]
+}

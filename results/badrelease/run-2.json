@@ -1,0 +1,319 @@
+{
+  "scenario": "badrelease",
+  "run": 2,
+  "run_id": "badrelease-2-1792831441",
+  "params": {
+    "rate_per_s": 40,
+    "duration_s": 170,
+    "fault_at_s": 30,
+    "window_s": 100,
+    "request_timeout_s": 5,
+    "k6_image": "grafana/k6:2.2.0"
+  },
+  "load_start_vm_epoch": 1792831447.1754663,
+  "fault_offset_s": 30.27,
+  "settled_before": {
+    "ready": 3,
+    "pods": 3,
+    "hpa_current": null,
+    "hpa_desired": null,
+    "backlog": 0,
+    "settle_seconds": 4.2
+  },
+  "pods_before": [
+    {
+      "name": "dispatch-f447b5558-4rrqs",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-ckw7h",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-l5pps",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ],
+  "k6_exit": 0,
+  "requests": 6799,
+  "failed": 0,
+  "dropped_iterations": 0,
+  "status_counts": {
+    "201": 6799
+  },
+  "overall": {
+    "from_s": 0,
+    "to_s": 1000000000.0,
+    "requests": 6799,
+    "failed": 0,
+    "p50_ms": 5.493367,
+    "p95_ms": 9.29884,
+    "p99_ms": 16.934808,
+    "max_ms": 493.95963
+  },
+  "pre_fault": {
+    "from_s": 5,
+    "to_s": 30,
+    "requests": 1001,
+    "failed": 0,
+    "p50_ms": 4.313197,
+    "p95_ms": 7.893787,
+    "p99_ms": 11.67354,
+    "max_ms": 99.187057
+  },
+  "fault_window": {
+    "from_s": 30,
+    "to_s": 130,
+    "requests": 4006,
+    "failed": 0,
+    "p50_ms": 5.827404,
+    "p95_ms": 9.899709,
+    "p99_ms": 33.783884,
+    "max_ms": 493.95963
+  },
+  "post_window": {
+    "from_s": 130,
+    "to_s": 1000000000.0,
+    "requests": 1591,
+    "failed": 0,
+    "p50_ms": 5.395279,
+    "p95_ms": 8.450144,
+    "p99_ms": 13.291538,
+    "max_ms": 29.53744
+  },
+  "error_window": {
+    "failed": 0,
+    "first_s": null,
+    "last_s": null,
+    "span_s": 0.0
+  },
+  "cluster_recovery_s": 1.51,
+  "detail": {
+    "rollout_deadline_s": 45,
+    "upgrade_failed": true,
+    "upgrade_to_detection_seconds": 52.15,
+    "rollback_seconds": 0.67,
+    "bad_release_to_restored_seconds": 53.82,
+    "rollback_to_ready_seconds": 1.51,
+    "pods_when_deadline_hit": [
+      {
+        "image": "dispatch-api:bad",
+        "ready": false
+      },
+      {
+        "image": "dispatch-api:48d2678",
+        "ready": true
+      },
+      {
+        "image": "dispatch-api:48d2678",
+        "ready": true
+      },
+      {
+        "image": "dispatch-api:48d2678",
+        "ready": true
+      }
+    ],
+    "rollback_stdout": "Rollback was a success! Happy Helming!"
+  },
+  "top_samples": [
+    {
+      "offset_s": -0.5,
+      "api_cpu_m": [
+        113,
+        121,
+        124
+      ],
+      "postgres_cpu_m": 411,
+      "receiver_cpu_m": [
+        32,
+        18
+      ]
+    },
+    {
+      "offset_s": 15.0,
+      "api_cpu_m": [
+        115,
+        80,
+        115
+      ],
+      "postgres_cpu_m": 446,
+      "receiver_cpu_m": [
+        28,
+        17
+      ]
+    },
+    {
+      "offset_s": 30.4,
+      "api_cpu_m": [
+        79,
+        127,
+        69
+      ],
+      "postgres_cpu_m": 252,
+      "receiver_cpu_m": [
+        14,
+        17
+      ]
+    },
+    {
+      "offset_s": 45.9,
+      "api_cpu_m": [
+        121,
+        130,
+        115
+      ],
+      "postgres_cpu_m": 453,
+      "receiver_cpu_m": [
+        23,
+        26
+      ]
+    },
+    {
+      "offset_s": 61.3,
+      "api_cpu_m": [
+        118,
+        114,
+        137
+      ],
+      "postgres_cpu_m": 421,
+      "receiver_cpu_m": [
+        23,
+        27
+      ]
+    },
+    {
+      "offset_s": 76.8,
+      "api_cpu_m": [
+        120,
+        118,
+        132
+      ],
+      "postgres_cpu_m": 423,
+      "receiver_cpu_m": [
+        26,
+        25
+      ]
+    },
+    {
+      "offset_s": 92.3,
+      "api_cpu_m": [
+        119,
+        131,
+        125
+      ],
+      "postgres_cpu_m": 440,
+      "receiver_cpu_m": [
+        28,
+        22
+      ]
+    },
+    {
+      "offset_s": 107.7,
+      "api_cpu_m": [
+        117,
+        130,
+        115
+      ],
+      "postgres_cpu_m": 426,
+      "receiver_cpu_m": [
+        29,
+        22
+      ]
+    },
+    {
+      "offset_s": 123.2,
+      "api_cpu_m": [
+        118,
+        122,
+        135
+      ],
+      "postgres_cpu_m": 427,
+      "receiver_cpu_m": [
+        24,
+        26
+      ]
+    },
+    {
+      "offset_s": 138.7,
+      "api_cpu_m": [
+        138,
+        134,
+        135
+      ],
+      "postgres_cpu_m": 651,
+      "receiver_cpu_m": [
+        25,
+        30
+      ]
+    },
+    {
+      "offset_s": 154.2,
+      "api_cpu_m": [
+        138,
+        117,
+        118
+      ],
+      "postgres_cpu_m": 507,
+      "receiver_cpu_m": [
+        25,
+        27
+      ]
+    },
+    {
+      "offset_s": 169.6,
+      "api_cpu_m": [
+        109,
+        126,
+        118
+      ],
+      "postgres_cpu_m": 392,
+      "receiver_cpu_m": [
+        25,
+        17
+      ]
+    }
+  ],
+  "hpa_after": {
+    "current": null,
+    "desired": null,
+    "cpu_pct": null
+  },
+  "pods_after": [
+    {
+      "name": "dispatch-f447b5558-4rrqs",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-ckw7h",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-l5pps",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ]
+}

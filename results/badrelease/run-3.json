@@ -1,0 +1,319 @@
+{
+  "scenario": "badrelease",
+  "run": 3,
+  "run_id": "badrelease-3-1792831618",
+  "params": {
+    "rate_per_s": 40,
+    "duration_s": 170,
+    "fault_at_s": 30,
+    "window_s": 100,
+    "request_timeout_s": 5,
+    "k6_image": "grafana/k6:2.2.0"
+  },
+  "load_start_vm_epoch": 1792831627.5373178,
+  "fault_offset_s": 30.586,
+  "settled_before": {
+    "ready": 3,
+    "pods": 3,
+    "hpa_current": null,
+    "hpa_desired": null,
+    "backlog": 0,
+    "settle_seconds": 7.7
+  },
+  "pods_before": [
+    {
+      "name": "dispatch-f447b5558-4rrqs",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-ckw7h",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-l5pps",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ],
+  "k6_exit": 0,
+  "requests": 6799,
+  "failed": 0,
+  "dropped_iterations": 0,
+  "status_counts": {
+    "201": 6799
+  },
+  "overall": {
+    "from_s": 0,
+    "to_s": 1000000000.0,
+    "requests": 6799,
+    "failed": 0,
+    "p50_ms": 5.97166,
+    "p95_ms": 23.93266,
+    "p99_ms": 280.360397,
+    "max_ms": 623.076802
+  },
+  "pre_fault": {
+    "from_s": 5,
+    "to_s": 30,
+    "requests": 1002,
+    "failed": 0,
+    "p50_ms": 5.702465,
+    "p95_ms": 9.025935,
+    "p99_ms": 14.014776,
+    "max_ms": 85.829338
+  },
+  "fault_window": {
+    "from_s": 30,
+    "to_s": 130,
+    "requests": 4005,
+    "failed": 0,
+    "p50_ms": 6.093419,
+    "p95_ms": 66.498845,
+    "p99_ms": 356.9778,
+    "max_ms": 623.076802
+  },
+  "post_window": {
+    "from_s": 130,
+    "to_s": 1000000000.0,
+    "requests": 1591,
+    "failed": 0,
+    "p50_ms": 5.862385,
+    "p95_ms": 13.084681,
+    "p99_ms": 61.18981,
+    "max_ms": 179.170016
+  },
+  "error_window": {
+    "failed": 0,
+    "first_s": null,
+    "last_s": null,
+    "span_s": 0.0
+  },
+  "cluster_recovery_s": 1.7,
+  "detail": {
+    "rollout_deadline_s": 45,
+    "upgrade_failed": true,
+    "upgrade_to_detection_seconds": 51.44,
+    "rollback_seconds": 0.81,
+    "bad_release_to_restored_seconds": 53.32,
+    "rollback_to_ready_seconds": 1.7,
+    "pods_when_deadline_hit": [
+      {
+        "image": "dispatch-api:bad",
+        "ready": false
+      },
+      {
+        "image": "dispatch-api:48d2678",
+        "ready": true
+      },
+      {
+        "image": "dispatch-api:48d2678",
+        "ready": true
+      },
+      {
+        "image": "dispatch-api:48d2678",
+        "ready": true
+      }
+    ],
+    "rollback_stdout": "Rollback was a success! Happy Helming!"
+  },
+  "top_samples": [
+    {
+      "offset_s": -0.5,
+      "api_cpu_m": [
+        109,
+        126,
+        118
+      ],
+      "postgres_cpu_m": 392,
+      "receiver_cpu_m": [
+        25,
+        17
+      ]
+    },
+    {
+      "offset_s": 15.1,
+      "api_cpu_m": [
+        88,
+        119,
+        78
+      ],
+      "postgres_cpu_m": 392,
+      "receiver_cpu_m": [
+        32,
+        11
+      ]
+    },
+    {
+      "offset_s": 30.7,
+      "api_cpu_m": [
+        70,
+        60,
+        78
+      ],
+      "postgres_cpu_m": 196,
+      "receiver_cpu_m": [
+        10,
+        15
+      ]
+    },
+    {
+      "offset_s": 46.3,
+      "api_cpu_m": [
+        124,
+        147,
+        102
+      ],
+      "postgres_cpu_m": 486,
+      "receiver_cpu_m": [
+        30,
+        23
+      ]
+    },
+    {
+      "offset_s": 61.9,
+      "api_cpu_m": [
+        132,
+        109,
+        126
+      ],
+      "postgres_cpu_m": 458,
+      "receiver_cpu_m": [
+        25,
+        27
+      ]
+    },
+    {
+      "offset_s": 77.4,
+      "api_cpu_m": [
+        143,
+        146,
+        122
+      ],
+      "postgres_cpu_m": 478,
+      "receiver_cpu_m": [
+        26,
+        30
+      ]
+    },
+    {
+      "offset_s": 92.9,
+      "api_cpu_m": [
+        123,
+        122,
+        129
+      ],
+      "postgres_cpu_m": 442,
+      "receiver_cpu_m": [
+        22,
+        33
+      ]
+    },
+    {
+      "offset_s": 108.9,
+      "api_cpu_m": [
+        125,
+        127,
+        126
+      ],
+      "postgres_cpu_m": 475,
+      "receiver_cpu_m": [
+        26,
+        28
+      ]
+    },
+    {
+      "offset_s": 125.0,
+      "api_cpu_m": [
+        136,
+        156,
+        152
+      ],
+      "postgres_cpu_m": 527,
+      "receiver_cpu_m": [
+        23,
+        34
+      ]
+    },
+    {
+      "offset_s": 140.7,
+      "api_cpu_m": [
+        136,
+        120,
+        128
+      ],
+      "postgres_cpu_m": 429,
+      "receiver_cpu_m": [
+        22,
+        35
+      ]
+    },
+    {
+      "offset_s": 156.4,
+      "api_cpu_m": [
+        117,
+        108,
+        128
+      ],
+      "postgres_cpu_m": 396,
+      "receiver_cpu_m": [
+        18,
+        33
+      ]
+    },
+    {
+      "offset_s": 171.8,
+      "api_cpu_m": [
+        127,
+        126,
+        114
+      ],
+      "postgres_cpu_m": 396,
+      "receiver_cpu_m": [
+        18,
+        28
+      ]
+    }
+  ],
+  "hpa_after": {
+    "current": null,
+    "desired": null,
+    "cpu_pct": null
+  },
+  "pods_after": [
+    {
+      "name": "dispatch-f447b5558-4rrqs",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-ckw7h",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f447b5558-l5pps",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ]
+}

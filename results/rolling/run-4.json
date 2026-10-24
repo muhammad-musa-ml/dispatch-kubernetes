@@ -1,0 +1,242 @@
+{
+  "scenario": "rolling",
+  "run": 4,
+  "run_id": "rolling-4-1792829303",
+  "params": {
+    "rate_per_s": 40,
+    "duration_s": 120,
+    "fault_at_s": 30,
+    "window_s": 60,
+    "request_timeout_s": 5,
+    "k6_image": "grafana/k6:2.2.0"
+  },
+  "load_start_vm_epoch": 1792829309.42008,
+  "fault_offset_s": 31.276,
+  "settled_before": {
+    "ready": 3,
+    "pods": 3,
+    "hpa_current": null,
+    "hpa_desired": null,
+    "backlog": 0,
+    "settle_seconds": 4.7
+  },
+  "pods_before": [
+    {
+      "name": "dispatch-f455855d9-8gzbz",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f455855d9-g97g8",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-f455855d9-qdjlh",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ],
+  "k6_exit": 0,
+  "requests": 4799,
+  "failed": 0,
+  "dropped_iterations": 0,
+  "status_counts": {
+    "201": 4799
+  },
+  "overall": {
+    "from_s": 0,
+    "to_s": 1000000000.0,
+    "requests": 4799,
+    "failed": 0,
+    "p50_ms": 6.293126,
+    "p95_ms": 11.572545,
+    "p99_ms": 22.492302,
+    "max_ms": 132.573188
+  },
+  "pre_fault": {
+    "from_s": 5,
+    "to_s": 30,
+    "requests": 1002,
+    "failed": 0,
+    "p50_ms": 6.150095,
+    "p95_ms": 10.381775,
+    "p99_ms": 23.500253,
+    "max_ms": 86.522002
+  },
+  "fault_window": {
+    "from_s": 30,
+    "to_s": 90,
+    "requests": 2403,
+    "failed": 0,
+    "p50_ms": 6.296081,
+    "p95_ms": 13.14556,
+    "p99_ms": 23.350581,
+    "max_ms": 85.082075
+  },
+  "post_window": {
+    "from_s": 90,
+    "to_s": 1000000000.0,
+    "requests": 1193,
+    "failed": 0,
+    "p50_ms": 6.517125,
+    "p95_ms": 10.62165,
+    "p99_ms": 21.367557,
+    "max_ms": 132.573188
+  },
+  "error_window": {
+    "failed": 0,
+    "first_s": null,
+    "last_s": null,
+    "span_s": 0.0
+  },
+  "cluster_recovery_s": 13.59,
+  "detail": {
+    "helm_upgrade_seconds": 13.59
+  },
+  "top_samples": [
+    {
+      "offset_s": -0.5,
+      "api_cpu_m": [
+        123,
+        133,
+        114
+      ],
+      "postgres_cpu_m": 457,
+      "receiver_cpu_m": [
+        24,
+        25
+      ]
+    },
+    {
+      "offset_s": 15.1,
+      "api_cpu_m": [
+        65,
+        74,
+        70
+      ],
+      "postgres_cpu_m": 263,
+      "receiver_cpu_m": [
+        24,
+        12
+      ]
+    },
+    {
+      "offset_s": 31.1,
+      "api_cpu_m": [
+        131,
+        125,
+        151
+      ],
+      "postgres_cpu_m": 530,
+      "receiver_cpu_m": [
+        31,
+        23
+      ]
+    },
+    {
+      "offset_s": 47.0,
+      "api_cpu_m": [
+        166,
+        150
+      ],
+      "postgres_cpu_m": 779,
+      "receiver_cpu_m": [
+        32,
+        23
+      ]
+    },
+    {
+      "offset_s": 62.7,
+      "api_cpu_m": [
+        127,
+        130,
+        100
+      ],
+      "postgres_cpu_m": 547,
+      "receiver_cpu_m": [
+        29,
+        31
+      ]
+    },
+    {
+      "offset_s": 78.2,
+      "api_cpu_m": [
+        127,
+        160,
+        143
+      ],
+      "postgres_cpu_m": 523,
+      "receiver_cpu_m": [
+        36,
+        34
+      ]
+    },
+    {
+      "offset_s": 93.6,
+      "api_cpu_m": [
+        143,
+        137,
+        132
+      ],
+      "postgres_cpu_m": 465,
+      "receiver_cpu_m": [
+        26,
+        24
+      ]
+    },
+    {
+      "offset_s": 109.3,
+      "api_cpu_m": [
+        143,
+        150,
+        143
+      ],
+      "postgres_cpu_m": 562,
+      "receiver_cpu_m": [
+        31,
+        32
+      ]
+    }
+  ],
+  "hpa_after": {
+    "current": null,
+    "desired": null,
+    "cpu_pct": null
+  },
+  "pods_after": [
+    {
+      "name": "dispatch-78c94ff8c7-7wcc9",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-78c94ff8c7-gjq6m",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-78c94ff8c7-p2fxr",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ]
+}

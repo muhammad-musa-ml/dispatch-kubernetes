@@ -1,0 +1,28 @@
+2026-10-24T08:02:03Z batch rolling: run rolling --runs 5 --rate 40 --duration 120 --fault-at 30 --window 60
+2026-10-24T08:02:03Z measurement lock acquired after waiting 0s
+2026-10-24T08:02:04Z --- rolling run 1: settling
+2026-10-24T08:02:07Z load started (k6 clock 1792828926.500); fault at +30s
+2026-10-24T08:02:50Z fault done; cluster recovery 13.3s
+2026-10-24T08:04:07Z k6 exited 0
+2026-10-24T08:04:07Z run 1: requests=4799 failed=0 dropped=0 p95(fault window)=10.161822 error_span=0.0s recovery=13.33
+2026-10-24T08:04:07Z --- rolling run 2: settling
+2026-10-24T08:04:14Z load started (k6 clock 1792829053.579); fault at +30s
+2026-10-24T08:04:56Z fault done; cluster recovery 12.3s
+2026-10-24T08:06:15Z k6 exited 0
+2026-10-24T08:06:15Z run 2: requests=4799 failed=0 dropped=0 p95(fault window)=60.827966 error_span=0.0s recovery=12.32
+2026-10-24T08:06:15Z --- rolling run 3: settling
+2026-10-24T08:06:22Z load started (k6 clock 1792829182.427); fault at +30s
+2026-10-24T08:07:06Z fault done; cluster recovery 13.5s
+2026-10-24T08:08:22Z k6 exited 0
+2026-10-24T08:08:23Z run 3: requests=4799 failed=0 dropped=0 p95(fault window)=9.661091 error_span=0.0s recovery=13.53
+2026-10-24T08:08:23Z --- rolling run 4: settling
+2026-10-24T08:08:29Z load started (k6 clock 1792829309.420); fault at +30s
+2026-10-24T08:09:14Z fault done; cluster recovery 13.6s
+2026-10-24T08:10:31Z k6 exited 0
+2026-10-24T08:10:32Z run 4: requests=4799 failed=0 dropped=0 p95(fault window)=13.14556 error_span=0.0s recovery=13.59
+2026-10-24T08:10:32Z --- rolling run 5: settling
+2026-10-24T08:10:39Z load started (k6 clock 1792829439.696); fault at +30s
+2026-10-24T08:11:28Z fault done; cluster recovery 18.0s
+2026-10-24T08:12:43Z k6 exited 0
+2026-10-24T08:12:44Z run 5: requests=4799 failed=0 dropped=0 p95(fault window)=294.632932 error_span=0.0s recovery=17.98
+2026-10-24T08:12:44Z measurement lock released

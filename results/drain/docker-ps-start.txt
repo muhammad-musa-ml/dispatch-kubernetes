@@ -1,0 +1,7 @@
+# docker ps at the start of the drain batch (2026-10-24T08:23:30.978465+00:00, waited 0s for the lock)
+NAMES                                    STATUS                        PORTS
+dispatch-worker2                         Up About an hour              
+dispatch-worker3                         Up About an hour              
+dispatch-control-plane                   Up About an hour              127.0.0.1:53027->6443/tcp, 127.0.0.1:18100->30080/tcp
+dispatch-worker                          Up About an hour              
+# plus 40 other containers from unrelated local projects running at the time (names withheld; they published 24 host ports)

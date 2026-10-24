@@ -1,0 +1,123 @@
+{
+  "captured_utc": "2026-10-24T07:46:54.889574+00:00",
+  "host_cpu": "13th Gen Intel(R) Core(TM) i7-13700HX",
+  "host_os": "Microsoft Windows [Version 10.0.26200.9711]",
+  "docker_server_version": "28.4.0",
+  "docker_ncpu": 24,
+  "docker_mem_bytes": 15550517248,
+  "kind": "kind v0.33.0 go1.26.7 windows/amd64",
+  "helm": "v4.3.1+gc0d08d0",
+  "terraform": "Terraform v1.16.6",
+  "kubectl_client": "Client Version: v1.32.2",
+  "k6_image": "grafana/k6:2.2.0",
+  "k6_version": "k6 v2.2.0 (commit/00a9a1b7f5, go1.26.5, linux/amd64)",
+  "node_image": "kindest/node:v1.37.0@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5",
+  "kubernetes_server": "v1.37.0",
+  "nodes": [
+    "dispatch-control-plane null",
+    "dispatch-worker \"data\"",
+    "dispatch-worker2 \"app\"",
+    "dispatch-worker3 \"app\""
+  ],
+  "dispatch_api_commit": "48d2678082f341b15094671570405d3d514a546a",
+  "chart_values": {
+    "allowHttpTargets": true,
+    "autoscaling": {
+      "enabled": false,
+      "maxReplicas": 8,
+      "minReplicas": 3,
+      "scaleDownStabilizationSeconds": 60,
+      "targetCPUUtilizationPercentage": 60
+    },
+    "image": {
+      "pullPolicy": "IfNotPresent",
+      "repository": "dispatch-api",
+      "tag": "48d2678"
+    },
+    "migrateImage": {
+      "pullPolicy": "IfNotPresent",
+      "repository": "dispatch-migrate",
+      "tag": "48d2678"
+    },
+    "migration": {
+      "activeDeadlineSeconds": 180,
+      "backoffLimit": 2,
+      "enabled": true
+    },
+    "nodeSelector": {
+      "dispatch-kubernetes/role": "app"
+    },
+    "podAnnotations": {
+      "rolloutId": "rolling-1-1792827357"
+    },
+    "podDisruptionBudget": {
+      "maxUnavailable": 1
+    },
+    "probes": {
+      "liveness": {
+        "failureThreshold": 3,
+        "periodSeconds": 10,
+        "timeoutSeconds": 2
+      },
+      "readiness": {
+        "failureThreshold": 2,
+        "periodSeconds": 2,
+        "timeoutSeconds": 2
+      },
+      "startup": {
+        "failureThreshold": 30,
+        "periodSeconds": 1
+      }
+    },
+    "receiver": {
+      "enabled": true,
+      "image": {
+        "repository": "",
+        "tag": ""
+      },
+      "port": 8081,
+      "replicas": 2,
+      "resources": {
+        "limits": {
+          "cpu": "250m",
+          "memory": "96Mi"
+        },
+        "requests": {
+          "cpu": "50m",
+          "memory": "32Mi"
+        }
+      }
+    },
+    "replicaCount": 3,
+    "resources": {
+      "limits": {
+        "cpu": "750m",
+        "memory": "128Mi"
+      },
+      "requests": {
+        "cpu": "250m",
+        "memory": "32Mi"
+      }
+    },
+    "secrets": {
+      "app": "dispatch-app",
+      "receiver": "dispatch-receiver"
+    },
+    "service": {
+      "nodePort": 30080,
+      "port": 8080,
+      "type": "NodePort"
+    },
+    "termination": {
+      "httpDrain": 10,
+      "margin": 10,
+      "preStopSleep": 5,
+      "workerAttempt": 5
+    },
+    "tolerations": [],
+    "topologySpread": {
+      "enabled": true,
+      "maxSkew": 1
+    }
+  }
+}

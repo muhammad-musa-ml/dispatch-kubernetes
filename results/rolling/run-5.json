@@ -1,0 +1,239 @@
+{
+  "scenario": "rolling",
+  "run": 5,
+  "run_id": "rolling-5-1792829432",
+  "params": {
+    "rate_per_s": 40,
+    "duration_s": 120,
+    "fault_at_s": 30,
+    "window_s": 60,
+    "request_timeout_s": 5,
+    "k6_image": "grafana/k6:2.2.0"
+  },
+  "load_start_vm_epoch": 1792829439.695579,
+  "fault_offset_s": 30.989,
+  "settled_before": {
+    "ready": 3,
+    "pods": 3,
+    "hpa_current": null,
+    "hpa_desired": null,
+    "backlog": 0,
+    "settle_seconds": 4.6
+  },
+  "pods_before": [
+    {
+      "name": "dispatch-78c94ff8c7-7wcc9",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-78c94ff8c7-gjq6m",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-78c94ff8c7-p2fxr",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ],
+  "k6_exit": 0,
+  "requests": 4799,
+  "failed": 0,
+  "dropped_iterations": 0,
+  "status_counts": {
+    "201": 4799
+  },
+  "overall": {
+    "from_s": 0,
+    "to_s": 1000000000.0,
+    "requests": 4799,
+    "failed": 0,
+    "p50_ms": 6.803586,
+    "p95_ms": 144.55091,
+    "p99_ms": 563.631648,
+    "max_ms": 1229.041116
+  },
+  "pre_fault": {
+    "from_s": 5,
+    "to_s": 30,
+    "requests": 1002,
+    "failed": 0,
+    "p50_ms": 6.477932,
+    "p95_ms": 16.095156,
+    "p99_ms": 102.704745,
+    "max_ms": 219.624632
+  },
+  "fault_window": {
+    "from_s": 30,
+    "to_s": 90,
+    "requests": 2396,
+    "failed": 0,
+    "p50_ms": 7.485387,
+    "p95_ms": 294.632932,
+    "p99_ms": 758.618339,
+    "max_ms": 1229.041116
+  },
+  "post_window": {
+    "from_s": 90,
+    "to_s": 1000000000.0,
+    "requests": 1200,
+    "failed": 0,
+    "p50_ms": 6.419443,
+    "p95_ms": 16.178711,
+    "p99_ms": 119.811417,
+    "max_ms": 333.660201
+  },
+  "error_window": {
+    "failed": 0,
+    "first_s": null,
+    "last_s": null,
+    "span_s": 0.0
+  },
+  "cluster_recovery_s": 17.98,
+  "detail": {
+    "helm_upgrade_seconds": 17.98
+  },
+  "top_samples": [
+    {
+      "offset_s": -1.7,
+      "api_cpu_m": [
+        151,
+        142,
+        130
+      ],
+      "postgres_cpu_m": 486,
+      "receiver_cpu_m": [
+        24,
+        37
+      ]
+    },
+    {
+      "offset_s": 14.1,
+      "api_cpu_m": [
+        96,
+        105,
+        76
+      ],
+      "postgres_cpu_m": 547,
+      "receiver_cpu_m": [
+        30,
+        20
+      ]
+    },
+    {
+      "offset_s": 29.6,
+      "api_cpu_m": [
+        96,
+        121,
+        76
+      ],
+      "postgres_cpu_m": 175,
+      "receiver_cpu_m": [
+        11,
+        23
+      ]
+    },
+    {
+      "offset_s": 45.8,
+      "api_cpu_m": [
+        146,
+        149,
+        134
+      ],
+      "postgres_cpu_m": 574,
+      "receiver_cpu_m": [
+        38,
+        24
+      ]
+    },
+    {
+      "offset_s": 61.7,
+      "api_cpu_m": [],
+      "postgres_cpu_m": 709,
+      "receiver_cpu_m": [
+        29,
+        35
+      ]
+    },
+    {
+      "offset_s": 77.2,
+      "api_cpu_m": [
+        121,
+        124,
+        157
+      ],
+      "postgres_cpu_m": 756,
+      "receiver_cpu_m": [
+        32,
+        33
+      ]
+    },
+    {
+      "offset_s": 93.1,
+      "api_cpu_m": [
+        135,
+        133,
+        132
+      ],
+      "postgres_cpu_m": 492,
+      "receiver_cpu_m": [
+        43,
+        12
+      ]
+    },
+    {
+      "offset_s": 108.7,
+      "api_cpu_m": [
+        139,
+        142,
+        154
+      ],
+      "postgres_cpu_m": 519,
+      "receiver_cpu_m": [
+        41,
+        19
+      ]
+    }
+  ],
+  "hpa_after": {
+    "current": null,
+    "desired": null,
+    "cpu_pct": null
+  },
+  "pods_after": [
+    {
+      "name": "dispatch-76b87fb7c7-dnnq2",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-76b87fb7c7-tpzdp",
+      "node": "dispatch-worker3",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    },
+    {
+      "name": "dispatch-76b87fb7c7-z24vn",
+      "node": "dispatch-worker2",
+      "ready": true,
+      "deleting": false,
+      "image": "dispatch-api:48d2678",
+      "phase": "Running"
+    }
+  ]
+}

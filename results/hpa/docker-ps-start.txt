@@ -1,0 +1,7 @@
+# docker ps at the start of the hpa batch (2026-10-24T09:06:57.128148+00:00, waited 660s for the lock)
+NAMES                                    STATUS                                 PORTS
+dispatch-worker2                         Up 2 hours                             
+dispatch-worker3                         Up 2 hours                             
+dispatch-control-plane                   Up 2 hours                             127.0.0.1:53027->6443/tcp, 127.0.0.1:18100->30080/tcp
+dispatch-worker                          Up 2 hours                             
+# plus 40 other containers from unrelated local projects running at the time (names withheld; they published 24 host ports)
